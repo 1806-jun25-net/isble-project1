@@ -4,6 +4,7 @@ using System.Text;
 
 namespace PizzaStore.Library.Interface
 {
+    //interface for possible items a store may carry
     public interface IInventory
     {
         int Dough { get; set; }

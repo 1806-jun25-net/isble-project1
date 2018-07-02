@@ -14,16 +14,19 @@ namespace PizzaStore.UI
             var users = new List<User>();
             IEnumerable<User> desList = DeserializeFromFile("data.xml");
             IEnumerable<User> result = new List<User>();
+            //This is for Async way, need to ask about regular way.
             try
             {
-                result = desList.Result;
+                //result = desList.Result;
             }
             catch (AggregateException ex)
             {
                 Console.WriteLine("File wasn't found");
             }
-
+            //adds results of deserialization to a list of users, need to change how to
+            //extract specific information from XML file.
             users.AddRange(result);
+
             bool running = true;
             string FirstName = "";
             string LastName = "";
@@ -32,7 +35,8 @@ namespace PizzaStore.UI
             FirstName = Console.ReadLine().ToLower();
             Console.WriteLine("Please enter your Last Name: ");
             LastName = Console.ReadLine().ToLower();
-
+            //while loop to run program till user is done
+            //user ends by typing quit
             while (running == true)
             {
                 string Input = "";  
@@ -51,7 +55,7 @@ namespace PizzaStore.UI
                 }
             }
         }
-
+        //code to serialize data to XML file
         private static void SerializeToFile(string fileName, List<User> user)
         {
             var serializer = new XmlSerializer(typeof(List<User>));
@@ -71,7 +75,7 @@ namespace PizzaStore.UI
                 fileStream.Dispose();
             }
         }
-
+        //code to deserialize XML file but need to ask about none async way
         private static IEnumerable<User> DeserializeFromFile(string fileName)
         {
             var serializer = new XmlSerializer(typeof(List<User>));

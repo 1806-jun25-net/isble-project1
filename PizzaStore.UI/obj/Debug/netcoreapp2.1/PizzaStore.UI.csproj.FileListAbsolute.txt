@@ -9,4 +9,6 @@ C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.A
 C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.AssemblyInfo.cs
 C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.dll
 C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.pdb
-C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\NLog.config
+C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\PizzaStore.Library.dll
+C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\PizzaStore.Library.pdb
+C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.csproj.CopyComplete

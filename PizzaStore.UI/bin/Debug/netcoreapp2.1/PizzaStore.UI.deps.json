@@ -1,34 +1,24 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "bd1d01ec59bc2fd910a7cd10d87bf76990a913a7"
+    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.1": {
       "PizzaStore.UI/1.0.0": {
         "dependencies": {
-          "NLog.Config": "4.5.6"
+          "PizzaStore.Library": "1.0.0"
         },
         "runtime": {
           "PizzaStore.UI.dll": {}
         }
       },
-      "NLog/4.5.6": {
+      "PizzaStore.Library/1.0.0": {
         "runtime": {
-          "lib/netstandard2.0/NLog.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.5.6.7874"
-          }
+          "PizzaStore.Library.dll": {}
         }
-      },
-      "NLog.Config/4.5.6": {
-        "dependencies": {
-          "NLog": "4.5.6",
-          "NLog.Schema": "4.5.6"
-        }
-      },
-      "NLog.Schema/4.5.6": {}
+      }
     }
   },
   "libraries": {
@@ -37,26 +27,10 @@
       "serviceable": false,
       "sha512": ""
     },
-    "NLog/4.5.6": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-FZIdeH92NTu6ePm+QbLT9pyd5vY9B+GYX8S2bh6ZxJC+XSTZDhZ6EHWxDzyBIEjtIb+nSBJfIgdMuQNQEYMqbQ==",
-      "path": "nlog/4.5.6",
-      "hashPath": "nlog.4.5.6.nupkg.sha512"
-    },
-    "NLog.Config/4.5.6": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-bfGBl23xtDmUcRc+HSyjmqgQJViEydjUvUzgWDqI08boShAPvufEyf/DDUhz987nD0n1olv2vCxsnHSdL3XpSA==",
-      "path": "nlog.config/4.5.6",
-      "hashPath": "nlog.config.4.5.6.nupkg.sha512"
-    },
-    "NLog.Schema/4.5.6": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-sv/vdbTMzIQbzqGBCF8wwanszdAtfiBaZwujpdcZomGyy8qkbQ4aG6dGFbpAx9B7to9w2RLpMpX1TMAXHLaORw==",
-      "path": "nlog.schema/4.5.6",
-      "hashPath": "nlog.schema.4.5.6.nupkg.sha512"
+    "PizzaStore.Library/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
