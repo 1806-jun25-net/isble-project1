@@ -19,5 +19,16 @@ namespace PizzaStore.Library.Modules
         public int Pepper { get; set; } = 1000;
         public int Pineapple { get; set; } = 1000;
         public int BBQChicken { get; set; } = 1000;
+
+        public void DecreaseInventory(List<int> toppings, int numberofpizzas)
+        {
+            foreach (var item in toppings)
+            {
+                if (item == Dough)
+                {
+
+                }
+            }
+        }
     }
 }

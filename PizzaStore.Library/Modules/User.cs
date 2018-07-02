@@ -13,7 +13,25 @@ namespace PizzaStore.Library
         public string First { get; set; }
         public string Last { get; set; }
         public Location PrefLocation { get; set; }
-        public string PrefOrder { get; set; }
+        public Order PrefOrder { get; set; }
         List<string> OrderHistory { get; set; }
+
+        public User(string first, string last)
+        {
+            First = first;
+            Last = last;
+            PrefOrder = new Order();
+            PrefLocation = new Location();
+        }
+
+        public User(string first, string last, Order preforder, Location preflocation)
+        {
+            First = first;
+            Last = last;
+            PrefOrder = preforder;
+            PrefLocation = preflocation;
+        }
+
+
     }
 }

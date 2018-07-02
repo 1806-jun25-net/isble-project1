@@ -8,9 +8,8 @@ namespace PizzaStore.Library.Interface
     //interface for aspects of a pizza
     public interface IPizza
     {
-        string Crust { get; set; }
         string Size { get; set; }
         bool Sauce { get; set; }
-        List<Toppings> Toppings { get; set; }
+        List<string> Toppings { get; set; }
     }
 }
