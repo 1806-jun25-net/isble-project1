@@ -13,4 +13,9 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PizzaStore.Library\PizzaStore.Library.csproj" />
+    <ProjectReference Include="..\PizzaStore.UI\PizzaStore.UI.csproj" />
+  </ItemGroup>
+
 </Project>

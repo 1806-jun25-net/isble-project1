@@ -8,16 +8,16 @@ namespace PizzaStore.Library.Modules
     //possible items stores could have
     public class Inventory : IInventory
     {
-        public int Dough { get; set; }
-        public int Cheese { get; set; }
-        public int Sauce { get; set; }
-        public int Peperoni { get; set; }
-        public int Onion { get; set; }
-        public int Ham { get; set; }
-        public int Sausage { get; set; }
-        public int Chicken { get; set; }
-        public int Pepper { get; set; }
-        public int Pineapple { get; set; }
-        public int BBQChicken { get; set; }
+        public int Dough { get; set; } = 1000;
+        public int Cheese { get; set; } = 1000;
+        public int Sauce { get; set; } = 1000;
+        public int Peperoni { get; set; } = 1000;
+        public int Onion { get; set; } = 1000;
+        public int Ham { get; set; } = 1000;
+        public int Sausage { get; set; } = 1000;
+        public int Chicken { get; set; } = 1000;
+        public int Pepper { get; set; } = 1000;
+        public int Pineapple { get; set; } = 1000;
+        public int BBQChicken { get; set; } = 1000;
     }
 }

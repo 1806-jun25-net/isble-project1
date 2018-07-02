@@ -10,7 +10,7 @@ namespace PizzaStore.Library
     {
         public int HowManyPizzas { get; set; }
         public List<Toppings> Toppings { get; set; }
-        public string user { get; set; }
+        public string User { get; set; }
         public string Location { get; set; }
 
 
