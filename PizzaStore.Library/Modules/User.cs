@@ -16,6 +16,12 @@ namespace PizzaStore.Library
         public Order PrefOrder { get; set; }
         List<string> OrderHistory { get; set; }
 
+        public User()
+        {
+
+        }
+
+
         public User(string first, string last)
         {
             First = first;

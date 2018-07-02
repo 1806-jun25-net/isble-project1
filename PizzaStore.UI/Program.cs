@@ -11,21 +11,22 @@ namespace PizzaStore.UI
     {
         static void Main(string[] args)
         {
-            //var users = new List<User>();
+            var users = new List<User>();
+            SerializeToFile("data.xml", users);
             //IEnumerable<User> desList = DeserializeFromFile("data.xml");
-            //IEnumerable<User> result = new List<User>();
-            ////This is for Async way, need to ask about regular way.
-            //try
-            //{
-            //    //result = desList.Result;
-            //}
-            //catch (AggregateException ex)
-            //{
-            //    Console.WriteLine("File wasn't found");
-            //}
+            IEnumerable<User> result = new List<User>();
+            //This is for Async way, need to ask about regular way.
+            try
+            {
+                //result = desList.Result;
+            }
+            catch (AggregateException ex)
+            {
+                Console.WriteLine("File wasn't found");
+            }
             //adds results of deserialization to a list of users, need to change how to
             //extract specific information from XML file.
-            //users.AddRange(result);
+            users.AddRange(result);
 
             bool running = true;
             string FirstName = "";
@@ -69,40 +70,40 @@ namespace PizzaStore.UI
             }
         }
         //code to serialize data to XML file
-        //private static void SerializeToFile(string fileName, List<User> user)
-        //{
-        //    var serializer = new XmlSerializer(typeof(List<User>));
-        //    FileStream fileStream = null;
-        //    try
-        //    {
-        //        fileStream = new FileStream(fileName, FileMode.Create);
-        //        serializer.Serialize(fileStream, user);
-        //    }
-        //    catch (Exception ex)
-        //    {
+        private static void SerializeToFile(string fileName, List<User> user)
+        {
+            var serializer = new XmlSerializer(typeof(List<User>));
+            FileStream fileStream = null;
+            try
+            {
+                fileStream = new FileStream(fileName, FileMode.Create);
+                serializer.Serialize(fileStream, user);
+            }
+            catch (Exception ex)
+            {
 
-        //        Console.WriteLine($"Path {fileName} was too long! {ex.Message}");
-        //    }
-        //    finally
-        //    {
-        //        fileStream.Dispose();
-        //    }
-        //}
+                Console.WriteLine($"Path {fileName} was too long! {ex.Message}");
+            }
+            finally
+            {
+                fileStream.Dispose();
+            }
+        }
         //code to deserialize XML file but need to ask about none async way
-        //private static IEnumerable<User> DeserializeFromFile(string fileName)
-        //{
-        //    var serializer = new XmlSerializer(typeof(List<User>));
-        //    FileStream fileStream = null;
-        //    try
-        //    {
-        //        fileStream = new FileStream(fileName, FileMode.Open);
-        //        var result = (IEnumerable<User>)serializer.Deserialize(fileStream);
-        //        return result;
-        //    }
-        //    finally
-        //    {
-        //        fileStream.Dispose();
-        //    }
-        //}
+        private static IEnumerable<User> DeserializeFromFile(string fileName)
+        {
+            var serializer = new XmlSerializer(typeof(List<User>));
+            FileStream fileStream = null;
+            try
+            {
+                fileStream = new FileStream(fileName, FileMode.Open);
+                var result = (IEnumerable<User>)serializer.Deserialize(fileStream);
+                return result;
+            }
+            finally
+            {
+                fileStream.Dispose();
+            }
+        }
     }
 }
