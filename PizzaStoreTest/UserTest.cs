@@ -5,9 +5,13 @@ using Xunit;
 
 namespace PizzaStoreTest
 {
-    class UserTest
+    public class UserTest
     {
         [Fact]
+        public void UserCanInputNameTest()
+        {
+            Console.WriteLine("Test");
+        }
 
     }
 }

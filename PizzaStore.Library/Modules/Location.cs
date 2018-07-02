@@ -4,9 +4,9 @@ using System.Text;
 
 namespace PizzaStore.Library
 {
-    public class Location
+    public class Location 
     {
-        public DateTime OrderHistory { get; set; }
-        public int MyProperty { get; set; }
+        public List<Order> OrderHistory { get; set; }
+        public string StoreNumber { get; set; }
     }
 }

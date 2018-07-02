@@ -207,6 +207,16 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "PizzaStore.Library/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/PizzaStore.Library.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PizzaStore.Library.dll": {}
+        }
       }
     }
   },
@@ -673,15 +683,21 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "PizzaStore.Library/1.0.0": {
+      "type": "project",
+      "path": "../PizzaStore.Library/PizzaStore.Library.csproj",
+      "msbuildProject": "../PizzaStore.Library/PizzaStore.Library.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.NETCore.App >= 2.1.0",
+      "PizzaStore.Library >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\joeis\\.nuget\\packages\\": {},
+    "C:\\Users\\Joe\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -690,14 +706,14 @@
       "projectUniqueName": "C:\\Revature\\isble-project1\\PizzaStore.UI\\PizzaStore.UI.csproj",
       "projectName": "PizzaStore.UI",
       "projectPath": "C:\\Revature\\isble-project1\\PizzaStore.UI\\PizzaStore.UI.csproj",
-      "packagesPath": "C:\\Users\\joeis\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Joe\\.nuget\\packages\\",
       "outputPath": "C:\\Revature\\isble-project1\\PizzaStore.UI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\joeis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Joe\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -709,7 +725,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Revature\\isble-project1\\PizzaStore.Library\\PizzaStore.Library.csproj": {
+              "projectPath": "C:\\Revature\\isble-project1\\PizzaStore.Library\\PizzaStore.Library.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

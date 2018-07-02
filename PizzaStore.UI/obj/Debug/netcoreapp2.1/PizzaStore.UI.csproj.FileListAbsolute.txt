@@ -1,0 +1,12 @@
+C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\PizzaStore.UI.deps.json
+C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\PizzaStore.UI.runtimeconfig.json
+C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\PizzaStore.UI.runtimeconfig.dev.json
+C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\PizzaStore.UI.dll
+C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\PizzaStore.UI.pdb
+C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.csprojAssemblyReference.cache
+C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.csproj.CoreCompileInputs.cache
+C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.AssemblyInfoInputs.cache
+C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.AssemblyInfo.cs
+C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.dll
+C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.pdb
+C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\NLog.config

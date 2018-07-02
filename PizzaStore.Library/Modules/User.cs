@@ -1,14 +1,19 @@
-﻿using System;
+﻿using PizzaStore.Library.Modules;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace PizzaStore.Library
 {
     public class User
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Location { get; set; }
-        public string OrderPref { get; set; }
+        [XmlAttribute]
+        public Name Name { get; set; }
+        public Location PrefLocation { get; set; }
+        public string PrefOrder { get; set; }
+        List<string> OrderHistory { get; set; }
+        
+        
     }
 }

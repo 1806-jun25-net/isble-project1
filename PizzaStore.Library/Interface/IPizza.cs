@@ -1,10 +1,14 @@
-﻿using System;
+﻿using PizzaStore.Library.Modules;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PizzaStore.Library.Interface
 {
-    interface IPizza
+    public interface IPizza
     {
+        string Crust { get; set; }
+        string Size { get; set; }
+        List<Toppings> Toppings { get; set; }
     }
 }
