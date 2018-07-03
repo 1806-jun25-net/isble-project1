@@ -36,6 +36,7 @@ namespace PizzaStore.UI
             FirstName = Console.ReadLine().ToLower();
             Console.WriteLine("Please enter your Last Name: ");
             LastName = Console.ReadLine().ToLower();
+
             //while loop to run program till user is done
             //user ends by typing quit
             while (running == true)
@@ -56,7 +57,7 @@ namespace PizzaStore.UI
                                 String PizzaSize = Console.ReadLine();
                                 break;
                             case "new":
-
+                                
                                 break;
                         }
                         break;
@@ -105,5 +106,23 @@ namespace PizzaStore.UI
                 fileStream.Dispose();
             }
         }
+        //used to add first user, myself, to the user list.
+        //private void FillList(List<User> list)
+        //{
+        //    list.Add(new User
+        //    {
+        //        First = "Joseph",
+        //        Last = "Isble",
+        //        PrefLocation = new Location
+        //        {
+        //            OrderHistory = new List<Order>
+        //        },
+        //            new Order
+        //            {
+
+        //            }
+        //        );
+        //}
+
     }
 }
