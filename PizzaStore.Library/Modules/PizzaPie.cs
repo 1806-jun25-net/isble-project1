@@ -14,9 +14,17 @@ namespace PizzaStore.Library
         public List<string> Toppings { get; set; }
 
 
-        public void MakePizza(bool sauce, int toppings, string size)
+        public void MakePizza(bool sauce, List<string> toppings, string size)
         {
+            Sauce = sauce;
+            Size = size;
+            Toppings = toppings;
+        }
 
+        //possibly redundant
+        public void SetToppings(List<string> toppings)
+        {
+            Toppings = toppings;
         }
     }
 }

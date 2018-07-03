@@ -22,6 +22,7 @@ namespace PizzaStore.Library.Modules
 
         public void DecreaseInventory(List<int> toppings, int numberofpizzas)
         {
+            //comparing wrong types, need to check that item is actually Dough, then subtract
             foreach (var item in toppings)
             {
                 if (item == Dough)
