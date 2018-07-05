@@ -13,12 +13,13 @@ namespace PizzaStore.Library
         public User User { get; set; }
         public Location Location { get; set; }
         public PizzaPie Pizza { get; set; }
+        public DateTime TimeOfOrder { get; set; }
 
         public Order(int numberofpizzas, HashSet<string> toppings, User user, Location location)
         {
             if (numberofpizzas <= 0 || numberofpizzas > 12)
             {
-                throw new ArgumentException("Number of pizzas bad");
+                throw new ArgumentException("Number of pizzas ordered is wrong");
             }
             HowManyPizzas = numberofpizzas;
             Toppings = toppings;

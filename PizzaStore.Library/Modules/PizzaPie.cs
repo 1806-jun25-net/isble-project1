@@ -22,7 +22,7 @@ namespace PizzaStore.Library
             Toppings = toppings;
         }
 
-        public void pricePizza(string size, HashSet<string> toppings)
+        public void PricePizza(string size, HashSet<string> toppings)
         {
             if(size == "S")
             {
