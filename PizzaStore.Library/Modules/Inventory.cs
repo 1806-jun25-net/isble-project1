@@ -11,7 +11,7 @@ namespace PizzaStore.Library.Modules
         public int Dough { get; set; } = 1000;
         public int Cheese { get; set; } = 1000;
         public int Sauce { get; set; } = 1000;
-        public int Peperoni { get; set; } = 1000;
+        public int Pepperoni { get; set; } = 1000;
         public int Onion { get; set; } = 1000;
         public int Ham { get; set; } = 1000;
         public int Sausage { get; set; } = 1000;
@@ -20,16 +20,12 @@ namespace PizzaStore.Library.Modules
         public int Pineapple { get; set; } = 1000;
         public int BBQChicken { get; set; } = 1000;
 
-        public void DecreaseInventory(List<int> toppings, int numberofpizzas)
+        public void DecreaseInventory(Order order)
         {
             //comparing wrong types, need to check that item is actually Dough, then subtract
-            foreach (var item in toppings)
-            {
-                if (item == Dough)
-                {
+            int totalPizzas = order.HowManyPizzas;
+            HashSet<string> tops = order.Toppings;
 
-                }
-            }
         }
     }
 }

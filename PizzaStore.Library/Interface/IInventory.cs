@@ -9,7 +9,7 @@ namespace PizzaStore.Library.Interface
     {
         int Dough { get; set; }
         int Cheese { get; set; }
-        int Peperoni { get; set; }
+        int Pepperoni { get; set; }
         int Onion { get; set; }
         int Sauce { get; set; }
         int Ham { get; set; }

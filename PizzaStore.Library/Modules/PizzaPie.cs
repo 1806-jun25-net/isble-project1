@@ -36,6 +36,20 @@ namespace PizzaStore.Library
             {
                 Price += 9.00;
             }
+            foreach (var top in toppings)
+            {
+                List<string> Meat = new List<string> { "pepperoni", "sausage", "chicken", "ham", "bbqchicken"};
+                List<string> Other = new List<string> { "onion", "pepper", "pineapple" };
+                if (Meat.Contains(top))
+                {
+                    Price += 1.00;
+                }
+
+                if (Other.Contains(top))
+                {
+                    Price += 0.50;
+                }
+            }
         }
     }
 }
