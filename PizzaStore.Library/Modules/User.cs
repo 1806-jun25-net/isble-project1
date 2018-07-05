@@ -14,7 +14,7 @@ namespace PizzaStore.Library
         public string Last { get; set; }
         public Location PrefLocation { get; set; }
         public Order PrefOrder { get; set; }
-        List<string> OrderHistory { get; set; }
+        List<Order> OrderHistory { get; set; }
 
         public User()
         {
@@ -22,12 +22,11 @@ namespace PizzaStore.Library
         }
 
 
-        public User(string first, string last)
+        public User(string first, string last, int storeNumber)
         {
             First = first;
             Last = last;
-            PrefOrder = new Order();
-            PrefLocation = new Location();
+            PrefLocation = new Location(storeNumber);
         }
 
         public User(string first, string last, Order preforder, Location preflocation)

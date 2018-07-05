@@ -9,17 +9,20 @@ namespace PizzaStore.Library
     public class Order
     {
         public int HowManyPizzas { get; set; }
-        public List<string> Toppings { get; set; }
-        public string User { get; set; }
-        public string Location { get; set; }
+        public HashSet<string> Toppings { get; set; }
+        public User User { get; set; }
+        public Location Location { get; set; }
 
-
-        public void MaxPizzas(int numberOfPizza)
+        public Order(int numberofpizzas, HashSet<string> toppings, User user, Location location)
         {
-            if (numberOfPizza < 12 && numberOfPizza > 0)
+            if (numberofpizzas <= 0 || numberofpizzas > 12)
             {
-                HowManyPizzas = numberOfPizza;
+                throw new ArgumentException("Number of pizzas bad");
             }
+            HowManyPizzas = numberofpizzas;
+            Toppings = toppings;
+            User = user;
+            Location = location;
         }
     }
 }

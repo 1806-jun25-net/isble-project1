@@ -11,19 +11,13 @@ namespace PizzaStore.Library
     {
         public string Size { get; set; }
         public bool Sauce { get; set; }
-        public List<string> Toppings { get; set; }
+        public HashSet<string> Toppings { get; set; }
 
 
-        public void MakePizza(bool sauce, List<string> toppings, string size)
+        public void MakePizza(bool sauce, HashSet<string> toppings, string size)
         {
             Sauce = sauce;
             Size = size;
-            Toppings = toppings;
-        }
-
-        //possibly redundant
-        public void SetToppings(List<string> toppings)
-        {
             Toppings = toppings;
         }
     }

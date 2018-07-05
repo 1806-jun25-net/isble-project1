@@ -10,6 +10,6 @@ namespace PizzaStore.Library.Interface
     {
         string Size { get; set; }
         bool Sauce { get; set; }
-        List<string> Toppings { get; set; }
+        HashSet<string> Toppings { get; set; }
     }
 }

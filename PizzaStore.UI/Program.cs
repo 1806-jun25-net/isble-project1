@@ -24,11 +24,13 @@ namespace PizzaStore.UI
             {
                 Console.WriteLine("File wasn't found");
             }
+
             //adds results of deserialization to a list of users, need to change how to
             //extract specific information from XML file.
             users.AddRange(result);
 
             bool running = true;
+            bool stillOrdering = true;
             string FirstName = "";
             string LastName = "";
 
@@ -57,6 +59,19 @@ namespace PizzaStore.UI
                                 String PizzaSize = Console.ReadLine();
                                 break;
                             case "new":
+                                while (stillOrdering)
+                                {
+
+                                    try
+                                    {
+                                        new Order(13, null, null, null);
+                                    }
+                                    catch (ArgumentException ex)
+                                    {
+                                        Console.WriteLine(ex.Message);
+                                    }
+                                }
+                                Console.WriteLine("")
                                 
                                 break;
                         }
