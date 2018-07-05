@@ -12,6 +12,7 @@ namespace PizzaStore.Library
         public HashSet<string> Toppings { get; set; }
         public User User { get; set; }
         public Location Location { get; set; }
+        public PizzaPie Pizza { get; set; }
 
         public Order(int numberofpizzas, HashSet<string> toppings, User user, Location location)
         {

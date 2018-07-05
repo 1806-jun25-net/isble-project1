@@ -51,16 +51,19 @@ namespace PizzaStore.UI
                 {
                     case "order":
                         Console.WriteLine("Would you like your prefered order or a new order? (type \"prefered\" for prefered order, or \"new\"for a new order");
-                        string Input2 = Console.ReadLine().ToLower();
-                        switch (Input2)
+                        Input = Console.ReadLine().ToLower();
+                        switch (Input)
                         {
                             case "prefered":
                                 Console.WriteLine("What size pizza would you like?");
-                                String PizzaSize = Console.ReadLine();
+                                string PizzaSize = Console.ReadLine();
+
                                 break;
                             case "new":
                                 while (stillOrdering)
                                 {
+                                    Console.Write("What size pizza would you like? (S, M, L):");
+                                    string pizzaSize = Console.ReadLine();
 
                                     try
                                     {
