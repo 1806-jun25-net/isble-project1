@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using NLog;
 using PizzaStore.Library;
 
 namespace PizzaStore.UI
 {
     class Program
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         static void Main(string[] args)
         {
+            logger.Info("Application start");
             Dictionary<string, Location> setOfLocations = new Dictionary<string, Location>();
             setOfLocations.Add("1", new Location("1"));
 
