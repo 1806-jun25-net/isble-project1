@@ -10,6 +10,7 @@ namespace PizzaStore.Library
     public class User
     {
         [XmlAttribute]
+        public string ID { get; set; }
         public string First { get; set; }
         public string Last { get; set; }
         public Location PrefLocation { get; set; }
@@ -21,6 +22,10 @@ namespace PizzaStore.Library
 
         }
 
+        public void SetOrderHistory(Order order)
+        {
+            OrderHistory.Add(order);
+        }
 
         public User(string first, string last, string storeNumber)
         {

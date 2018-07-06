@@ -21,6 +21,25 @@ namespace PizzaStore.Library
             {
                 throw new ArgumentException("Number of pizzas ordered is wrong");
             }
+
+            List<string> Meat = new List<string> { "pepperoni", "sausage", "chicken", "ham", "bbqchicken" };
+            List<string> Other = new List<string> { "onion", "pepper", "pineapple" };
+
+            foreach (var top in toppings)
+            {
+                if (!Meat.Contains(top))
+                {
+                    toppings.Remove(top);
+                    throw new ArgumentException($"{top} is not a valid topping");
+                }
+                else if (!Other.Contains(top))
+                {
+                    toppings.Remove(top);
+                    throw new ArgumentException($"{top} is not a valid topping");
+
+                }
+            }
+
             HowManyPizzas = numberofpizzas;
             Toppings = toppings;
             User = user;

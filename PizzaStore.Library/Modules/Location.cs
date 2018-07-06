@@ -23,5 +23,14 @@ namespace PizzaStore.Library
         {
             StoreNumber = storenumber;
         }
+
+        public void CreateLocations(string storenumber)
+        {
+            if (true)
+            {
+
+            }
+            Location one = new Location(storenumber);
+        }
     }
 }

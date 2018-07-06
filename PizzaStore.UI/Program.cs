@@ -11,6 +11,18 @@ namespace PizzaStore.UI
     {
         static void Main(string[] args)
         {
+            Dictionary<string, Location> setOfLocations = new Dictionary<string, Location>();
+            setOfLocations.Add("1", new Location("1"));
+
+            //Check to see if locations have already been created
+            foreach (var item in setOfLocations)
+            {
+                if (true)
+                {
+                    
+                }
+            }
+            
             Dictionary<string, User> users = new Dictionary<string, User>();
             //SerializeToFile("data.xml", users[]);
 
@@ -41,84 +53,118 @@ namespace PizzaStore.UI
             FirstName = Console.ReadLine().ToLower();
             Console.WriteLine("Please enter your Last Name: ");
             LastName = Console.ReadLine().ToLower();
-            jumppoint1:
-            if (users.ContainsKey(FirstName + LastName))
+            string FirstLast = FirstName + LastName;
+
+            while(!users.ContainsKey(FirstName + LastName))
             {
-                //while loop to run program till user is done
-                //user ends by typing quit
-                while (running == true)
+                Console.WriteLine("Welcome new user. Please enter your preffered store");
+                while (true)
                 {
-                    string Input = "";
-                    Console.WriteLine($"Welcome {FirstName} {LastName}. Type a command for what you would like to do.");
-                    Console.WriteLine("Commands are: order, change location, quit");
-                    Input = Console.ReadLine();
-                    switch (Input)
+                    Console.WriteLine("Stores are: 1, 2, 3, 4");
+                    Console.WriteLine("Preffered store:");
+                    string input = Console.ReadLine();
+                    if (setOfLocations.ContainsKey(input))
                     {
-                        case "order":
-                            Console.WriteLine("Would you like your prefered order or a new order? (type \"prefered\" for prefered order, or \"new\" for a new order");
-                            Input = Console.ReadLine().ToLower();
-                            switch (Input)
-                            {
-                                case "prefered":
-                                    Console.WriteLine("What size pizza would you like?");
-                                    string PizzaSize = Console.ReadLine().ToLower();
-
-                                    break;
-                                case "new":
-                                    HashSet<string> toppings = new HashSet<string>();
-                                    Console.Write("What size pizza would you like? (S, M, L):");
-                                    string pizzaSize = Console.ReadLine().ToLower();
-                                    Console.Write("Would you like Sauce? y/n:");
-                                    string sauce = Console.ReadLine().ToLower();
-                                    while (true)
-                                    {
-                                        Console.WriteLine("Please type the toppings you want one at a time.");
-                                        Console.WriteLine("Possible toppings include, Pepperoni, Onion, Ham, Sausage, Chicken, Pepper, Pineapple, and BBQChicken");
-                                        Console.Write("When you are done adding your toppings type done:");
-                                        
-                                        string topping = Console.ReadLine().ToLower();
-                                        if(topping == "done")
-                                        {
-                                            break;
-                                        }
-                                        toppings.Add(topping);
-                                        
-                                    }
-                                    //need to think of a way to count pizzas while still making new orders
-
-                                    try
-                                    {
-                                        new Order(13, toppings, users[FirstName+LastName], users[FirstName+LastName].PrefLocation);
-                                    }
-                                    catch (ArgumentException ex)
-                                    {
-                                        Console.WriteLine(ex.Message);
-                                    }
-                                    Console.WriteLine("");
-    
-
-                                break;
-                            }
-                            break;
-
-                        case "quit":
-                            running = false;
-                            break;
+                        User newUser = new User(FirstName, LastName, input);
+                        users.Add(FirstName + LastName, newUser);
+                        Console.WriteLine("Preferred location has been updated");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("That is not a valid store ID");
                     }
                 }
             }
-            else
-            {
-                Console.WriteLine("Welcome new user. Please enter your preffered store");
-                Console.WriteLine("Stores are: 1, 2, 3, 4");
-                Console.WriteLine("Preffered store:");
-                string storenumber = Console.ReadLine();
 
-                User newUser = new User(FirstName, LastName, storenumber);
-                users.Add(FirstName + LastName, newUser);
-                goto jumppoint1;
+            Console.WriteLine($"Welcome {FirstName} {LastName}. Type a command for what you would like to do.");
+
+            while (running == true)
+            {
+                string Input = "";
+                Console.WriteLine("Commands are: order, finalize order, change location, quit");
+                Input = Console.ReadLine();
+                switch (Input)
+                {
+                    case "order":
+                        Console.WriteLine("Would you like your preferred order or a new order? (type \"preferred\" for preferred order, or \"new\" for a new order");
+                        Input = Console.ReadLine().ToLower();
+                        switch (Input)
+                        {
+                            case "preferred":
+                                Console.WriteLine("What size pizza would you like? (S, M, L):");
+                                string PizzaSize = Console.ReadLine().ToLower();
+                                PizzaPie pref_pizza = new PizzaPie();
+                                pref_pizza.MakePizza(users[FirstLast].PrefOrder.Pizza.Sauce, users[FirstLast].PrefOrder.Toppings, PizzaSize);
+                                pizzasOrdered += 1;
+                                break;
+                            case "new":
+                                HashSet<string> toppings = new HashSet<string>();
+                                Console.Write("What size pizza would you like? (S, M, L):");
+                                string pizzaSize = Console.ReadLine().ToLower();
+                                Console.Write("Would you like Sauce? y/n:");
+                                string sauce = Console.ReadLine().ToLower();
+                                while (true)
+                                {
+                                    Console.WriteLine("Please type the toppings you want one at a time.");
+                                    Console.WriteLine("Possible toppings include: Pepperoni, Onion, Ham, Sausage, Chicken, Pepper, Pineapple, and BBQChicken");
+                                    Console.Write("When you are done adding your toppings type \"done\":");
+
+                                    string topping = Console.ReadLine().ToLower();
+                                    if (topping == "done")
+                                    {
+                                        break;
+                                    }
+                                    toppings.Add(topping);
+
+                                }
+                                //need to think of a way to count pizzas while still making new orders
+                                PizzaPie new_pizza = new PizzaPie();
+                                //new_pizza.MakePizza();
+                                try
+                                {
+                                    new Order(1, toppings, users[FirstLast], users[FirstLast].PrefLocation);
+                                }
+                                catch (ArgumentException ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                }
+                                Console.WriteLine("");
+
+                                //users[FirstName + LastName].SetOrderHistory(new_order);
+
+                                break;
+                        }
+                        break;
+
+                    case "change location":
+                        while(true)
+                        {
+                            Console.Write("Please enter the store ID you would like to change to, 1, 2, 3, or 4:");
+                            string input = Console.ReadLine();
+                            if (setOfLocations.ContainsKey(input))
+                            {
+                                users[FirstLast].PrefLocation.StoreNumber = input;
+                                Console.WriteLine("Preferred location has been updated");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("That is not a valid store ID");
+                            }
+                        }
+                        break;
+
+                    case "quit":
+                        running = false;
+                        break;
+                }
             }
+
         }
+
+
+
         //code to serialize data to XML file
         private static void SerializeToFile(string fileName, List<User> user)
         {
@@ -155,23 +201,5 @@ namespace PizzaStore.UI
                 fileStream.Dispose();
             }
         }
-        //used to add first user, myself, to the user list.
-        //private void FillList(List<User> list)
-        //{
-        //    list.Add(new User
-        //    {
-        //        First = "Joseph",
-        //        Last = "Isble",
-        //        PrefLocation = new Location
-        //        {
-        //            OrderHistory = new List<Order>
-        //        },
-        //            new Order
-        //            {
-
-        //            }
-        //        );
-        //}
-
     }
 }
