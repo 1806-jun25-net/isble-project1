@@ -10,7 +10,7 @@ namespace PizzaStore.Library
     public class Location
     {
         public List<Order> OrderHistory { get; set; }
-        public int StoreNumber { get; set; }
+        public string StoreNumber { get; set; }
         public Dictionary<string, int> Inventory { get; set; }
 
 
@@ -19,7 +19,7 @@ namespace PizzaStore.Library
 
         }
 
-        public Location(int storenumber)
+        public Location(string storenumber)
         {
             StoreNumber = storenumber;
         }

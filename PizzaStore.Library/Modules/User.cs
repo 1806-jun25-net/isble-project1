@@ -22,7 +22,7 @@ namespace PizzaStore.Library
         }
 
 
-        public User(string first, string last, int storeNumber)
+        public User(string first, string last, string storeNumber)
         {
             First = first;
             Last = last;
