@@ -16,65 +16,55 @@ namespace PizzaStore.UI
         {
             logger.Info("Application start");
 
-            var serializer = new XmlSerializer(typeof(List<User>));
+            var userSerializer = new XmlSerializer(typeof(List<User>));
+            var locationSerializer = new XmlSerializer(typeof(List<Location>));
             List<User> UserList = new List<User>();
-            Dictionary<string, User> users = new Dictionary<string, User>();
-            Dictionary<string, Location> Location_dict = new Dictionary<string, Location>();
+            List<Location> LocationList = new List<Location>();
+            Dictionary<string, User> Users_Dict = new Dictionary<string, User>();
+            Dictionary<string, Location> Location_Dict = new Dictionary<string, Location>();
 
 
             try
             {
-                using (var stream = new FileStream("data.xml", FileMode.Open))
+                using (var stream = new FileStream("User_data.xml", FileMode.Open))
                 {
-                    UserList = (List<User>)serializer.Deserialize(stream);
+                    UserList = (List<User>)userSerializer.Deserialize(stream);
                 }
             }
             catch (FileNotFoundException)
             {
                 Console.WriteLine("Saved data not found");
             }
-
             foreach (var item in UserList)
             {
                 string firstlast = item.First + item.Last;
-                users.Add(firstlast, item);
+                Users_Dict.Add(firstlast, item);
             }
-            
-            //try
-            //{
-            //    Location_dict = DeserializeLocationsFromFile("UserData.xml");
-            //}
-            //catch (FileNotFoundException)
-            //{
-            //    Console.WriteLine("Data not fount.");
-            //}
-            //catch(IOException ex)
-            //{
-            //    Console.WriteLine($"Error: {ex.Message}");
-            //}
 
-         
-            
 
-            //try
-            //{
-            //    users = DeserializeUsersFromFile(@"data.xml");
-            //}
-            //catch (FileNotFoundException)
-            //{
-            //    Console.WriteLine("Data not found.");
-            //}
-            //catch(IOException ex)
-            //{
-            //    Console.WriteLine($"Error: {ex.Message}");
-            //}
-
-            if (Location_dict.Count == 0)
+            try
             {
-                Location_dict.Add("1", new Location("1"));
-                Location_dict.Add("2", new Location("2"));
-                Location_dict.Add("3", new Location("3"));
-                Location_dict.Add("4", new Location("4"));
+                using (var stream = new FileStream("Location_data.xml", FileMode.Open))
+                {
+                    LocationList = (List<Location>)locationSerializer.Deserialize(stream);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Saved data not found");
+            }
+            foreach (var item in LocationList)
+            {
+                string Location = item.StoreNumber;
+                Location_Dict.Add(Location, item);
+            }
+
+            if (Location_Dict.Count == 0)
+            {
+                Location_Dict.Add("1", new Location("1"));
+                Location_Dict.Add("2", new Location("2"));
+                Location_Dict.Add("3", new Location("3"));
+                Location_Dict.Add("4", new Location("4"));
             }
 
             bool running = true;
@@ -88,7 +78,7 @@ namespace PizzaStore.UI
             LastName = Console.ReadLine().ToLower().Replace(" ", string.Empty);
             string FirstLast = FirstName + LastName;
 
-            while(!users.ContainsKey(FirstName + LastName))
+            while(!Users_Dict.ContainsKey(FirstName + LastName))
             {
                 Console.WriteLine("Welcome new user. Please enter your preffered store");
                 while (true)
@@ -96,10 +86,10 @@ namespace PizzaStore.UI
                     Console.WriteLine("Stores are: 1, 2, 3, 4");
                     Console.WriteLine("Preffered store:");
                     string input = Console.ReadLine();
-                    if (Location_dict.ContainsKey(input))
+                    if (Location_Dict.ContainsKey(input))
                     {
                         User newUser = new User(FirstName, LastName, input);
-                        users.Add(FirstName + LastName, newUser);
+                        Users_Dict.Add(FirstName + LastName, newUser);
                         Console.WriteLine("Preferred location has been updated");
                         break;
                     }
@@ -114,6 +104,7 @@ namespace PizzaStore.UI
 
             while (running == true)
             {
+                string location = Users_Dict[FirstLast].PrefLocation.StoreNumber.ToString();
                 string Input = "";
                 Console.WriteLine("Commands are: order, finalize order, change location, quit");
                 Input = Console.ReadLine();
@@ -126,27 +117,32 @@ namespace PizzaStore.UI
                         switch (Input)
                         {
                             case "preferred":
-                                if (users[FirstLast].OrderHistory.Count < 1)
+                                if (Users_Dict[FirstLast].OrderHistory.Count < 1)
                                 {
                                     Console.WriteLine("You have no previous orders, preferred order is not possible at this time.");
                                     break;
                                 }
                                 PizzaPie PrefOrderPizza = new PizzaPie();
                                 string OrderToppings = "";
-                                foreach (var item in users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count - 1].Pizza.Toppings)
+                                foreach (var item in Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Toppings)
                                 {
                                     OrderToppings = OrderToppings + ", " + item;
                                 }
-                                Console.WriteLine($"Your preferred order is size:{users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count-1].Pizza.Size} Sauce: {users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count-1].Pizza.Sauce} Toppings: {OrderToppings} Cost: {users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count - 1].Pizza.Price}");
-                                Order PrefOrder = new Order(users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count - 1].HowManyPizzas, users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count - 1].Toppings, users[FirstLast], users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count - 1].Location);
+                                Console.WriteLine($"Your preferred order is size:{Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count-1].Pizza.Size} Sauce: {Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count-1].Pizza.Sauce} Toppings: {OrderToppings} Cost: {Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Price}");
+                                Order PrefOrder = new Order(Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].HowManyPizzas, Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Location);
 
-                                PrefOrderPizza.MakePizza(users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count - 1].Pizza.Sauce, users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count - 1].Pizza.Toppings, users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count - 1].Pizza.Size);
+                                PrefOrderPizza.MakePizza(Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Sauce, Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Toppings, Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Size);
 
                                 PrefOrder.AddPizzaToOrder(PrefOrderPizza);
 
-                                PrefOrder.UpdateToppings(users[FirstLast].OrderHistory[users[FirstLast].OrderHistory.Count - 1].Pizza.Toppings);
+                                PrefOrder.UpdateToppings(Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Toppings);
+                                PrefOrder.Price = PrefOrderPizza.Price;
+                                PrefOrder.TimepizzaWasOrdered();
 
-                                users[FirstName + LastName].SetOrderHistory(PrefOrder);
+                                Location_Dict[location].DecreaseInventory(PrefOrder);
+
+
+                                Users_Dict[FirstLast].SetOrderHistory(PrefOrder);
 
                                 Console.WriteLine("Order has been created!");
                                 break;
@@ -158,15 +154,15 @@ namespace PizzaStore.UI
                                 HashSet<string> toppings = new HashSet<string>();
                                 try
                                 {
-                                    Order TestOrder = new Order(numberofpizza, toppings, users[FirstLast], users[FirstLast].PrefLocation);
+                                    Order TestOrder = new Order(numberofpizza, toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].PrefLocation);
                                 }
                                 catch (ArgumentException ex)
                                 {
                                     Console.WriteLine(ex.Message);
-                                    break;
+                                    break; 
                                 }
 
-                                Order New_Order = new Order(numberofpizza, toppings, users[FirstLast], users[FirstLast].PrefLocation);
+                                Order NewOrder = new Order(numberofpizza, toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].PrefLocation);
 
                                 Console.Write("What size pizza would you like? (S, M, L):");
                                 string pizzaSize = Console.ReadLine().ToLower().Replace(" ", string.Empty);
@@ -197,21 +193,26 @@ namespace PizzaStore.UI
 
                                 }
 
-                                PizzaPie new_pizza = new PizzaPie();
-                                new_pizza.MakePizza(sauce, toppings, pizzaSize);
+                                PizzaPie NewPizza = new PizzaPie();
+                                NewPizza.MakePizza(sauce, toppings, pizzaSize);
+                                NewPizza.PricePizza(pizzaSize, toppings);
 
-                                new_pizza.PricePizza(pizzaSize, toppings);
+                                NewOrder.AddPizzaToOrder(NewPizza);
+                                NewOrder.UpdateToppings(toppings);
+                                NewOrder.Price = NewPizza.Price;
+                                NewOrder.TimepizzaWasOrdered();
 
-                                New_Order.AddPizzaToOrder(new_pizza);
-                              
-                                New_Order.UpdateToppings(toppings);
+                                Location_Dict[location].DecreaseInventory(NewOrder);
 
-                                users[FirstName + LastName].SetOrderHistory(New_Order);
+                                Users_Dict[FirstLast].SetOrderHistory(NewOrder);
 
+
+                                Console.WriteLine("Order has been made");
+
+                                Location_Dict[location].SetOrderHistory(NewOrder);
                                 
                                 Console.WriteLine();
 
-                                
                                 break;
                         }
                         break;
@@ -221,9 +222,9 @@ namespace PizzaStore.UI
                         {
                             Console.Write("Please enter the store ID you would like to change to, 1, 2, 3, or 4:");
                             string input = Console.ReadLine().ToLower().Replace(" ", string.Empty);
-                            if (Location_dict.ContainsKey(input))
+                            if (Location_Dict.ContainsKey(input))
                             {
-                                users[FirstLast].PrefLocation.StoreNumber = input;
+                                Users_Dict[FirstLast].PrefLocation.StoreNumber = input;
                                 Console.WriteLine("Preferred location has been updated");
                                 break;
                             }
@@ -236,17 +237,19 @@ namespace PizzaStore.UI
 
                     case "quit":
                         running = false;
-                        List<User> userList = new List<User>();
 
-                        foreach (KeyValuePair<string, User> item in users)
+                        List<User> userList = new List<User>();
+                        List<Location> locationList = new List<Location>();
+
+                        foreach (KeyValuePair<string, User> item in Users_Dict)
                         {
                             userList.Add(item.Value);
                         }
                         try
                         {
-                            using (var stream = new FileStream("data.xml", FileMode.Create))
+                            using (var stream = new FileStream("User_data.xml", FileMode.Create))
                             {
-                                serializer.Serialize(stream, userList);
+                                userSerializer.Serialize(stream, userList);
                             }
                         }
                         catch(IOException ex)
@@ -254,115 +257,25 @@ namespace PizzaStore.UI
                             Console.WriteLine($"Error during save: {ex.Message}");
                         }
 
-                        //SerializeUsersToFile(@"data.xml", users);
-                        //SerializeLocationsToFile("LocationData.xml", Location_dict);
+                        foreach (KeyValuePair<string, Location> item in Location_Dict)
+                        {
+                            locationList.Add(item.Value);
+                        }
+                        try
+                        {
+                            using (var stream = new FileStream("Location_data.xml", FileMode.Create))
+                            {
+                                locationSerializer.Serialize(stream, locationList);
+                            }
+                        }
+                        catch (IOException ex)
+                        {
+                            Console.WriteLine($"Error during save: {ex.Message}");
+                        }
                         break;
                 }
             }
 
-        }
-
-
-
-        ////code to serialize data to XML file
-        //private static void SerializeUsersToFile(string fileName, Dictionary<string, User> user)
-        //{
-        //    List<User> userList = new List<User>();
-
-        //    foreach (KeyValuePair<string, User> item in user)
-        //    {
-        //        userList.Add(item.Value);
-        //    }
-
-        //    var serializer = new XmlSerializer(typeof(List<User>));
-        //    FileStream fileStream = null;
-        //    try
-        //     {
-        //        fileStream = new FileStream(fileName, FileMode.Create);
-        //        serializer.Serialize(fileStream, userList);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        Console.WriteLine($"Path {fileName} was too long! {ex.Message}");
-        //    }
-        //    finally
-        //    {
-        //        fileStream.Dispose();
-        //    }
-        //}
-        ////code to deserialize XML file but need to ask about none async way
-        //private static Dictionary<string, User> DeserializeUsersFromFile(string fileName)
-        //{
-        //    var serializer = new XmlSerializer(typeof(List<User>));
-        //    FileStream fileStream = null;
-        //    Dictionary<string, User> users = new Dictionary<string, User>();
-        //    try
-        //    {
-        //        fileStream = new FileStream(fileName, FileMode.Open);
-        //        List<User> result = (List<User>)serializer.Deserialize(fileStream);
-        //        foreach (var item in result)
-        //        {
-        //            string firstlast = item.First + item.Last;
-        //            users.Add(firstlast, item);
-        //        }
-        //        return users;
-        //    }
-        //    finally
-        //    {
-        //        fileStream.Dispose();
-        //    }
-        //}
-
-
-
-        //private static void SerializeLocationsToFile(string fileName, Dictionary<string, Location> user)
-        //{
-        //    List<Location> LocationList = new List<Location>();
-
-        //    foreach (KeyValuePair<string, Location> item in user)
-        //    {
-        //        LocationList.Add(item.Value);
-        //    }
-
-        //    var serializer = new XmlSerializer(typeof(List<User>));
-        //    FileStream fileStream = null;
-        //    try
-        //    {
-        //        fileStream = new FileStream(fileName, FileMode.Create);
-        //        serializer.Serialize(fileStream, LocationList);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        Console.WriteLine($"Path {fileName} was too long! {ex.Message}");
-        //    }
-        //    finally
-        //    {
-        //        fileStream.Dispose();
-        //    }
-        //}
-        ////code to deserialize XML file but need to ask about none async way
-        //private static Dictionary<string, Location> DeserializeLocationsFromFile(string fileName)
-        //{
-        //    var serializer = new XmlSerializer(typeof(List<Location>));
-        //    FileStream fileStream = null;
-        //    Dictionary<string, Location> Locations = new Dictionary<string, Location>();
-        //    try
-        //    {
-        //        fileStream = new FileStream(fileName, FileMode.Open);
-        //        List<Location> result = (List<Location>)serializer.Deserialize(fileStream);
-        //        foreach (var item in result)
-        //        {
-        //            string storenumber = item.StoreNumber;
-        //            Locations.Add(storenumber, item);
-        //        }
-        //        return Locations;
-        //    }
-        //    finally
-        //    {
-        //        fileStream.Dispose();
-        //    }
-        //}
+        } 
     }
 }

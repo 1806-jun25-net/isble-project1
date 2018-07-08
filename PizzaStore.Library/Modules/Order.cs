@@ -8,12 +8,12 @@ namespace PizzaStore.Library
     //questions that will be asked to user placeing an order for pizza
     public class Order
     {
+        public string User { get; set; }
         public int HowManyPizzas { get; set; }
+        public PizzaPie Pizza { get; set; }
         public HashSet<string> Toppings { get; set; }
         public Location Location { get; set; }
-        public PizzaPie Pizza { get; set; }
         public DateTime TimeOfOrder { get; set; }
-        public string User { get; set; }
         public double Price { get; set; }
 
         public Order()
@@ -53,6 +53,11 @@ namespace PizzaStore.Library
         public void AddPizzaToOrder(PizzaPie pizza)
         {
             Pizza = pizza;
+        }
+
+        public void TimepizzaWasOrdered()
+        {
+            TimeOfOrder = DateTime.Now;
         }
     }
 }
