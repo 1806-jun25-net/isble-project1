@@ -11,7 +11,7 @@ namespace PizzaStore.Library
     {
         public List<Order> OrderHistory { get; set; }
         public string StoreNumber { get; set; }
-        public Dictionary<string, int> Inventory { get; set; }
+        public Inventory Inventory { get; set; }
 
 
         public Location()
@@ -22,15 +22,6 @@ namespace PizzaStore.Library
         public Location(string storenumber)
         {
             StoreNumber = storenumber;
-        }
-
-        public void CreateLocations(string storenumber)
-        {
-            if (true)
-            {
-
-            }
-            Location one = new Location(storenumber);
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using PizzaStore.Library.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PizzaStore.Library.Modules
 {
     //possible items stores could have
-    public class Inventory : IInventory
+    public class Inventory
     {
         public int Dough { get; set; } = 1000;
         public int Cheese { get; set; } = 1000;

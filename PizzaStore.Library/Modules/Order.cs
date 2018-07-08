@@ -10,10 +10,16 @@ namespace PizzaStore.Library
     {
         public int HowManyPizzas { get; set; }
         public HashSet<string> Toppings { get; set; }
-        public User User { get; set; }
         public Location Location { get; set; }
         public PizzaPie Pizza { get; set; }
         public DateTime TimeOfOrder { get; set; }
+        public string User { get; set; }
+        public double Price { get; set; }
+
+        public Order()
+        {
+
+        }
 
         public Order(int numberofpizzas, HashSet<string> toppings, User user, Location location)
         {
@@ -22,28 +28,31 @@ namespace PizzaStore.Library
                 throw new ArgumentException("Number of pizzas ordered is wrong");
             }
 
-            List<string> Meat = new List<string> { "pepperoni", "sausage", "chicken", "ham", "bbqchicken" };
-            List<string> Other = new List<string> { "onion", "pepper", "pineapple" };
+            List<string> ListOfToppings = new List<string> { "pepperoni", "sausage", "chicken", "ham", "bbqchicken", "onion", "pepper", "pineapple" };
 
             foreach (var top in toppings)
             {
-                if (!Meat.Contains(top))
+                if (!ListOfToppings.Contains(top))
                 {
                     toppings.Remove(top);
                     throw new ArgumentException($"{top} is not a valid topping");
-                }
-                else if (!Other.Contains(top))
-                {
-                    toppings.Remove(top);
-                    throw new ArgumentException($"{top} is not a valid topping");
-
                 }
             }
 
             HowManyPizzas = numberofpizzas;
             Toppings = toppings;
-            User = user;
+            User = user.First+user.Last;
             Location = location;
+        }
+
+        public void UpdateToppings(HashSet<string> toppings)
+        {
+            Toppings = toppings;
+        }
+
+        public void AddPizzaToOrder(PizzaPie pizza)
+        {
+            Pizza = pizza;
         }
     }
 }

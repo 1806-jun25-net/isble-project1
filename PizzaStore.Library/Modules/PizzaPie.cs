@@ -1,13 +1,11 @@
-﻿using PizzaStore.Library.Interface;
-using PizzaStore.Library.Modules;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PizzaStore.Library
 {
     //aspects of a pizza
-    public class PizzaPie : IPizza
+    public class PizzaPie
     {
         public string Size { get; set; }
         public bool Sauce { get; set; }
@@ -24,15 +22,15 @@ namespace PizzaStore.Library
 
         public void PricePizza(string size, HashSet<string> toppings)
         {
-            if(size == "S")
+            if(size == "s")
             {
                 Price += 7.00;
             }
-            if (size == "M")
+            if (size == "m")
             {
                 Price += 8.00;
             }
-            if (size == "L")
+            if (size == "l")
             {
                 Price += 9.00;
             }
