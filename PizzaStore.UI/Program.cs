@@ -78,7 +78,7 @@ namespace PizzaStore.UI
             LastName = Console.ReadLine().ToLower().Replace(" ", string.Empty);
             string FirstLast = FirstName + LastName;
 
-            while(!Users_Dict.ContainsKey(FirstName + LastName))
+            while(!Users_Dict.ContainsKey(FirstLast))
             {
                 Console.WriteLine("Welcome new user. Please enter your preffered store");
                 while (true)
@@ -89,7 +89,7 @@ namespace PizzaStore.UI
                     if (Location_Dict.ContainsKey(input))
                     {
                         User newUser = new User(FirstName, LastName, input);
-                        Users_Dict.Add(FirstName + LastName, newUser);
+                        Users_Dict.Add(FirstLast, newUser);
                         Console.WriteLine("Preferred location has been updated");
                         break;
                     }
@@ -104,16 +104,16 @@ namespace PizzaStore.UI
 
             while (running == true)
             {
-                string location = Users_Dict[FirstLast].PrefLocation.StoreNumber.ToString();
+                string location = Users_Dict[FirstLast].PrefLocation;
                 string Input = "";
-                Console.WriteLine("Commands are: order, finalize order, change location, quit");
+                Console.WriteLine("Commands are: order, Order history, change location, quit");
                 Input = Console.ReadLine();
                 switch (Input)
                 {
                     case "order":
                         Console.WriteLine("Would you like your preferred order or a new order? (type \"preferred\" for preferred order, or \"new\" for a new order");
                         Input = Console.ReadLine().ToLower();
-                        int numberofpizza = 0;
+                        int NumberOfPizza = 0;
                         switch (Input)
                         {
                             case "preferred":
@@ -126,7 +126,7 @@ namespace PizzaStore.UI
                                 string OrderToppings = "";
                                 foreach (var item in Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Toppings)
                                 {
-                                    OrderToppings = OrderToppings + ", " + item;
+                                    OrderToppings += item + ", ";
                                 }
                                 Console.WriteLine($"Your preferred order is size:{Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count-1].Pizza.Size} Sauce: {Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count-1].Pizza.Sauce} Toppings: {OrderToppings} Cost: {Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Price}");
                                 Order PrefOrder = new Order(Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].HowManyPizzas, Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Location);
@@ -150,11 +150,11 @@ namespace PizzaStore.UI
                             case "new":
                                 Console.WriteLine("How many pizzas will you be ordering?");
                                 string input = Console.ReadLine();
-                                numberofpizza = Convert.ToInt32(input);
+                                NumberOfPizza = Convert.ToInt32(input);
                                 HashSet<string> toppings = new HashSet<string>();
                                 try
                                 {
-                                    Order TestOrder = new Order(numberofpizza, toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].PrefLocation);
+                                    Order TestOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].PrefLocation);
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -162,7 +162,7 @@ namespace PizzaStore.UI
                                     break; 
                                 }
 
-                                Order NewOrder = new Order(numberofpizza, toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].PrefLocation);
+                                Order NewOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].PrefLocation);
 
                                 Console.Write("What size pizza would you like? (S, M, L):");
                                 string pizzaSize = Console.ReadLine().ToLower().Replace(" ", string.Empty);
@@ -174,9 +174,14 @@ namespace PizzaStore.UI
                                 {
                                     sauce = true;
                                 }
-                                else
+                                else if(sauceinput == "n")
                                 {
                                     sauce = false;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("invalid input, please create your order again");
+                                    break;
                                 }
                                 while (true)
                                 {
@@ -194,12 +199,26 @@ namespace PizzaStore.UI
                                 }
 
                                 PizzaPie NewPizza = new PizzaPie();
-                                NewPizza.MakePizza(sauce, toppings, pizzaSize);
-                                NewPizza.PricePizza(pizzaSize, toppings);
+                                try
+                                {
+                                    NewPizza.MakePizza(sauce, toppings, pizzaSize);
+                                }
+                                catch (ArgumentException)
+                                {
+                                    Console.WriteLine("Invalid topping was removed from order.");
+                                }
+
+                                
+                                NewPizza.PricePizza(pizzaSize, toppings,NumberOfPizza);
+                                if (NewPizza.Price > 500)
+                                {
+                                    Console.WriteLine("Price of pizza is too high, canceling order");
+                                    break;
+                                }
 
                                 NewOrder.AddPizzaToOrder(NewPizza);
                                 NewOrder.UpdateToppings(toppings);
-                                NewOrder.Price = NewPizza.Price;
+                                NewOrder.UpdatePriceOfOrder(NewPizza.Price);
                                 NewOrder.TimepizzaWasOrdered();
 
                                 Location_Dict[location].DecreaseInventory(NewOrder);
@@ -224,7 +243,7 @@ namespace PizzaStore.UI
                             string input = Console.ReadLine().ToLower().Replace(" ", string.Empty);
                             if (Location_Dict.ContainsKey(input))
                             {
-                                Users_Dict[FirstLast].PrefLocation.StoreNumber = input;
+                                Users_Dict[FirstLast].PrefLocation = input;
                                 Console.WriteLine("Preferred location has been updated");
                                 break;
                             }

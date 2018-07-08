@@ -1,5 +1,4 @@
-﻿using PizzaStore.Library.Modules;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
@@ -15,7 +14,7 @@ namespace PizzaStore.Library
         public string Last { get; set; }
         //public Order PrefOrder { get; set; }
         public List<Order> OrderHistory { get; set; } = new List<Order>();
-        public Location PrefLocation { get; set; }
+        public string PrefLocation { get; set; }
         
         
 
@@ -33,17 +32,7 @@ namespace PizzaStore.Library
         {
             First = first;
             Last = last;
-            PrefLocation = new Location(storeNumber);
+            PrefLocation = storeNumber;
         }
-
-        public User(string first, string last, Order preforder, Location preflocation)
-        {
-            First = first;
-            Last = last;
-            //PrefOrder = preforder;
-            PrefLocation = preflocation;
-        }
-
-
     }
 }
