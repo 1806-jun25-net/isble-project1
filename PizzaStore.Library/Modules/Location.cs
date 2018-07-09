@@ -29,7 +29,7 @@ namespace PizzaStore.Library
             int totalPizzas = order.HowManyPizzas;
             Dough = Dough - totalPizzas;
             Cheese = Cheese - totalPizzas;
-            if (order.Pizza.Sauce == true)
+            if (order.Pizza.Sauce)
             {
                 Sauce = Sauce - totalPizzas;
             }

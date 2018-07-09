@@ -101,7 +101,7 @@ namespace PizzaStore.UI
             }
 
             Console.WriteLine($"Welcome {FirstName} {LastName}. Type a command for what you would like to do.");
-
+            //Console.WriteLine($"There is {Location_Dict["4"].Pepper} left in inventory at location 4");
             while (running == true)
             {
                 string location = Users_Dict[FirstLast].PrefLocation;
