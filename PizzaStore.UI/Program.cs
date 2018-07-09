@@ -129,7 +129,7 @@ namespace PizzaStore.UI
                                     OrderToppings += item + ", ";
                                 }
                                 Console.WriteLine($"Your preferred order is size:{Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count-1].Pizza.Size} Sauce: {Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count-1].Pizza.Sauce} Toppings: {OrderToppings} Cost: {Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Price}");
-                                Order PrefOrder = new Order(Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].HowManyPizzas, Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Location);
+                                Order PrefOrder = new Order(Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].HowManyPizzas, Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Location, PrefOrderPizza);
 
                                 PrefOrderPizza.MakePizza(Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Sauce, Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Toppings, Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Size);
 
@@ -152,9 +152,10 @@ namespace PizzaStore.UI
                                 string input = Console.ReadLine();
                                 NumberOfPizza = Convert.ToInt32(input);
                                 HashSet<string> toppings = new HashSet<string>();
+                                PizzaPie NewPizza = new PizzaPie();
                                 try
                                 {
-                                    Order TestOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].PrefLocation);
+                                    Order TestOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation], NewPizza);
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -162,7 +163,7 @@ namespace PizzaStore.UI
                                     break; 
                                 }
 
-                                Order NewOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Users_Dict[FirstLast].PrefLocation);
+                                Order NewOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation], NewPizza);
 
                                 Console.Write("What size pizza would you like? (S, M, L):");
                                 string pizzaSize = Console.ReadLine().ToLower().Replace(" ", string.Empty);
@@ -198,7 +199,7 @@ namespace PizzaStore.UI
 
                                 }
 
-                                PizzaPie NewPizza = new PizzaPie();
+                                
                                 try
                                 {
                                     NewPizza.MakePizza(sauce, toppings, pizzaSize);

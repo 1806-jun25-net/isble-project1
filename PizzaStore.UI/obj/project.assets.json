@@ -738,7 +738,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Joe\\.nuget\\packages\\": {},
+    "C:\\Users\\joeis\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -747,14 +747,14 @@
       "projectUniqueName": "C:\\Revature\\isble-project1\\PizzaStore.UI\\PizzaStore.UI.csproj",
       "projectName": "PizzaStore.UI",
       "projectPath": "C:\\Revature\\isble-project1\\PizzaStore.UI\\PizzaStore.UI.csproj",
-      "packagesPath": "C:\\Users\\Joe\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\joeis\\.nuget\\packages\\",
       "outputPath": "C:\\Revature\\isble-project1\\PizzaStore.UI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Joe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\joeis\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

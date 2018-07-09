@@ -38,34 +38,33 @@ namespace PizzaStore.Library
                 switch (item)
                 {
                     case "pepperoni":
-                        Pepperoni = Pepperoni - totalPizzas;
+                        order.Location.Pepperoni = Pepperoni - totalPizzas;
                         break;
                     case "onion":
-                        Onion = Onion - totalPizzas;
+                        order.Location.Onion = Onion - totalPizzas;
                         break;
                     case "ham":
-                        Ham = Ham - totalPizzas;
+                        order.Location.Ham = Ham - totalPizzas;
                         break;
                     case "sausage":
-                        Sausage = Sausage - totalPizzas;
+                        order.Location.Sausage = Sausage - totalPizzas;
                         break;
                     case "chicken":
-                        Chicken = Chicken - totalPizzas;
+                        order.Location.Chicken = Chicken - totalPizzas;
                         break;
                     case "pepper":
-                        Pepper = Pepper - totalPizzas;
+                        order.Location.Pepper = Pepper - totalPizzas;
                         break;
                     case "pineapple":
-                        Pineapple = Pineapple - totalPizzas;
+                        order.Location.Pineapple = Pineapple - totalPizzas;
                         break;
                     case "bbqchicken":
-                        BBQChicken = BBQChicken - totalPizzas;
+                        order.Location.BBQChicken = BBQChicken - totalPizzas;
                         break;
 
                 }
             } 
             HashSet<string> tops = order.Toppings;
-
         }
 
         public Location()
