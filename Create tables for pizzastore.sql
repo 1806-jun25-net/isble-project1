@@ -27,6 +27,7 @@ CREATE TABLE PizzaStore.Orders
 	TimeOfOrder DATETIME
 );
 
+--DROP TABLE PizzaStore.PizzaPie
 CREATE TABLE PizzaStore.PizzaPie
 (
 	ID INT NOT NULL,
@@ -39,12 +40,13 @@ CREATE TABLE PizzaStore.PizzaPie
 	Sausage BIT,
 	BBQChicken BIT,
 	Pepperoni BIT,
-)
+);
 
 
---DROP TABLE PizzaStore.Inventory;
+--DROP TABLE PizzaStore.Inventory
 CREATE TABLE PizzaStore.Inventory
 (
+	ID INT NOT NULL,
 	InventoryID INT IDENTITY NOT NULL,
 	Dough INT,
 	Cheese INT,
@@ -60,15 +62,21 @@ CREATE TABLE PizzaStore.Inventory
 );
 
 
-ALTER TABLE PizzaStore.Pizza
-ADD CONSTRAINT PK_Pizza_ID PRIMARY KEY (ID)
 
-ALTER TABLE PizzaStore.Pizza
-ADD CONSTRAINT FK_Pizza_UserID FOREIGN KEY (UserID) REFERENCES PizzaStore.Users(ID)
+ALTER TABLE PizzaStore.Inventory
+ADD CONSTRAINT PK_Inventory_ID PRIMARY KEY (ID)
 GO
 
-ALTER TABLE PizzaStore.Pizza
-ADD CONSTRAINT FK_Pizza_OrderID FOREIGN KEY (OrderID) REFERENCES PizzaStore.Orders(OrderID)
+ALTER TABLE PizzaStore.PizzaPie
+ADD CONSTRAINT PK_PizzaPie_ID PRIMARY KEY (ID)
+GO
+
+ALTER TABLE PizzaStore.Orders
+ADD CONSTRAINT FK_Orders_UserID FOREIGN KEY (UserID) REFERENCES PizzaStore.Users(ID)
+GO
+
+ALTER TABLE PizzaStore.PizzaPie
+ADD CONSTRAINT FK_PizzaPie_OrderID FOREIGN KEY (OrderID) REFERENCES PizzaStore.Orders(OrderID)
 GO
 
 ALTER TABLE PizzaStore.Locations

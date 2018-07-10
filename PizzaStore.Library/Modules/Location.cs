@@ -8,7 +8,7 @@ namespace PizzaStore.Library
     //also order history of all orders placed at specified store number
     public class Location
     {
-        public string StoreNumber { get; set; }
+        public int StoreNumber { get; set; }
         public List<Order> OrderHistory { get; set; } = new List<Order>();
 
         public int Dough { get; set; } = 1000;
@@ -77,7 +77,7 @@ namespace PizzaStore.Library
             OrderHistory.Add(order);
         }
 
-        public Location(string storenumber)
+        public Location(int storenumber)
         {
             StoreNumber = storenumber;
         }

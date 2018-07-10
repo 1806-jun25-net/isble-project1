@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "8590eac18cbd8e2905e8bdd0e37389b47a1e5de0"
+    "signature": "b9aac4008f56a3f4289f97e338755a39a6d2d88c"
   },
   "compilationOptions": {},
   "targets": {
@@ -107,6 +107,11 @@
             "assemblyVersion": "2.1.1.0",
             "fileVersion": "2.1.1.18157"
           }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Tools/2.1.1": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "2.1.1"
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/2.1.1": {
@@ -1381,7 +1386,20 @@
           "Microsoft.NET.Test.Sdk": "15.7.0"
         }
       },
+      "PizzaStore.Data/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "2.1.1",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.1",
+          "Microsoft.EntityFrameworkCore.Tools": "2.1.1"
+        },
+        "runtime": {
+          "PizzaStore.Data.dll": {}
+        }
+      },
       "PizzaStore.Library/1.0.0": {
+        "dependencies": {
+          "PizzaStore.Data": "1.0.0"
+        },
         "runtime": {
           "PizzaStore.Library.dll": {}
         }
@@ -1394,6 +1412,7 @@
           "Microsoft.Extensions.Configuration.FileExtensions": "2.1.1",
           "Microsoft.Extensions.Configuration.Json": "2.1.1",
           "NLog": "4.5.6",
+          "PizzaStore.Data": "1.0.0",
           "PizzaStore.Library": "1.0.0"
         },
         "runtime": {
@@ -1470,6 +1489,13 @@
       "sha512": "sha512-+owJ/RcmFOrRseb+9PEjqhoOcE7l+DeTe0Jwte0tqhYoiPxZpC6jtGhUhpftPSBkC662siPR7kNm2TfxpPVilQ==",
       "path": "microsoft.entityframeworkcore.sqlserver/2.1.1",
       "hashPath": "microsoft.entityframeworkcore.sqlserver.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Tools/2.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OYHhKbFNJCSHpkLAKI9yqTx3+SZ7aHKZaCP+G5ctlL/rZm5Y37Ke00abUhp5mFEJlvEueYfOGDx/GjltEs210A==",
+      "path": "microsoft.entityframeworkcore.tools/2.1.1",
+      "hashPath": "microsoft.entityframeworkcore.tools.2.1.1.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/2.1.1": {
       "type": "package",
@@ -2191,6 +2217,11 @@
       "sha512": "sha512-B+RtW4dyBquEyjSAFyV5RMifaOZOirDwlzcIq2DNVGo1gzJS8PAPu5S+2y1n6ZgEMWbpqJf9TkZ55+X6FLdy3A==",
       "path": "xunit.runner.visualstudio/2.3.1",
       "hashPath": "xunit.runner.visualstudio.2.3.1.nupkg.sha512"
+    },
+    "PizzaStore.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "PizzaStore.Library/1.0.0": {
       "type": "project",

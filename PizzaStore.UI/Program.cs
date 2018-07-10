@@ -26,7 +26,7 @@ namespace PizzaStore.UI
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             var configuration = configBuilder.Build();
             var optionsBuilder = new DbContextOptionsBuilder<PizzaStoreDbContext>();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("RestaurantReviewsDB"));
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("PizzastoreDB"));
             var options = optionsBuilder.Options;
 
             var dbContext = new PizzaStoreDbContext(options);
@@ -38,7 +38,7 @@ namespace PizzaStore.UI
             List<User> UserList = new List<User>();
             List<Location> LocationList = new List<Location>();
             Dictionary<string, User> Users_Dict = new Dictionary<string, User>();
-            Dictionary<string, Location> Location_Dict = new Dictionary<string, Location>();
+            Dictionary<int, Location> Location_Dict = new Dictionary<int, Location>();
 
 
             try
@@ -72,16 +72,16 @@ namespace PizzaStore.UI
             }
             foreach (var item in LocationList)
             {
-                string Location = item.StoreNumber;
+                int Location = item.StoreNumber;
                 Location_Dict.Add(Location, item);
             }
 
             if (Location_Dict.Count == 0)
             {
-                Location_Dict.Add("1", new Location("1"));
-                Location_Dict.Add("2", new Location("2"));
-                Location_Dict.Add("3", new Location("3"));
-                Location_Dict.Add("4", new Location("4"));
+                Location_Dict.Add(1, new Location(1));
+                Location_Dict.Add(2, new Location(2));
+                Location_Dict.Add(3, new Location(3));
+                Location_Dict.Add(4, new Location(4));
             }
 
             bool running = true;
@@ -103,9 +103,10 @@ namespace PizzaStore.UI
                     Console.WriteLine("Stores are: 1, 2, 3, 4");
                     Console.WriteLine("Preffered store:");
                     string input = Console.ReadLine();
-                    if (Location_Dict.ContainsKey(input))
+                    int loc = Convert.ToInt32(input);
+                    if (Location_Dict.ContainsKey(loc))
                     {
-                        User newUser = new User(FirstName, LastName, input);
+                        User newUser = new User(FirstName, LastName, loc);
                         Users_Dict.Add(FirstLast, newUser);
                         Console.WriteLine("Preferred location has been updated");
                         break;
@@ -121,10 +122,10 @@ namespace PizzaStore.UI
             //Console.WriteLine($"There is {Location_Dict["4"].Pepper} left in inventory at location 4");
             while (running == true)
             {
-                string location = Users_Dict[FirstLast].PrefLocation;
+                int location = Users_Dict[FirstLast].PrefLocation;
                 string Input = "";
                 Console.WriteLine("Commands are: order, Order history, change location, quit");
-                Input = Console.ReadLine();
+                Input = Console.ReadLine().ToLower();
                 switch (Input)
                 {
                     case "order":
@@ -139,7 +140,7 @@ namespace PizzaStore.UI
                                     Console.WriteLine("You have no previous orders, preferred order is not possible at this time.");
                                     break;
                                 }
-                                PizzaPie PrefOrderPizza = new PizzaPie();
+                                Library.PizzaPie PrefOrderPizza = new Library.PizzaPie();
                                 string OrderToppings = "";
                                 foreach (var item in Users_Dict[FirstLast].OrderHistory[Users_Dict[FirstLast].OrderHistory.Count - 1].Pizza.Toppings)
                                 {
@@ -166,10 +167,10 @@ namespace PizzaStore.UI
 
                             case "new":
                                 Console.WriteLine("How many pizzas will you be ordering?");
-                                string input = Console.ReadLine();
+                                string input = Console.ReadLine().ToLower();
                                 NumberOfPizza = Convert.ToInt32(input);
                                 HashSet<string> toppings = new HashSet<string>();
-                                PizzaPie NewPizza = new PizzaPie();
+                                Library.PizzaPie NewPizza = new Library.PizzaPie();
                                 try
                                 {
                                     Order TestOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation].StoreNumber, NewPizza);
@@ -259,9 +260,10 @@ namespace PizzaStore.UI
                         {
                             Console.Write("Please enter the store ID you would like to change to, 1, 2, 3, or 4:");
                             string input = Console.ReadLine().ToLower().Replace(" ", string.Empty);
-                            if (Location_Dict.ContainsKey(input))
+                            int IntInput = Convert.ToInt32(input);
+                            if (Location_Dict.ContainsKey(IntInput))
                             {
-                                Users_Dict[FirstLast].PrefLocation = input;
+                                Users_Dict[FirstLast].PrefLocation = IntInput;
                                 Console.WriteLine("Preferred location has been updated");
                                 break;
                             }
@@ -294,7 +296,7 @@ namespace PizzaStore.UI
                             Console.WriteLine($"Error during save: {ex.Message}");
                         }
 
-                        foreach (KeyValuePair<string, Location> item in Location_Dict)
+                        foreach (KeyValuePair<int, Location> item in Location_Dict)
                         {
                             locationList.Add(item.Value);
                         }

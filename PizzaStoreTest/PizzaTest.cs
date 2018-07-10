@@ -35,8 +35,8 @@ namespace PizzaStoreTest
         [Fact]
         public void SetUserOrderHistoryTest()
         {
-            var testLocation = new Location("1");
-            User testUser = new User("joseph", "isble", "1");
+            var testLocation = new Location(1);
+            User testUser = new User("joseph", "isble", 1);
             PizzaPie testPizza = new PizzaPie();
             testPizza.MakePizza(true, new HashSet<string> { "pineapple" }, "m");
             var testOrder = new Order(10, testPizza.Toppings, testUser, testLocation.StoreNumber, testPizza);
@@ -50,10 +50,10 @@ namespace PizzaStoreTest
     [Fact]
         public void DecreaseInventoryTestOneItem()
         {
-            var testLocation = new Location("1");
+            var testLocation = new Location(1);
             PizzaPie testPizza = new PizzaPie();
             testPizza.MakePizza(true, new HashSet<string> { "pineapple" }, "m");
-            var testOrder = new Order(10, testPizza.Toppings, new User("joseph", "isble", "1"), testLocation.StoreNumber, testPizza);
+            var testOrder = new Order(10, testPizza.Toppings, new User("joseph", "isble", 1), testLocation.StoreNumber, testPizza);
 
             testLocation.DecreaseInventory(testOrder);
 

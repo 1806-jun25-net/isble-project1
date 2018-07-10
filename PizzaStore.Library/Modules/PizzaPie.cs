@@ -10,7 +10,7 @@ namespace PizzaStore.Library
         public string Size { get; set; }
         public bool Sauce { get; set; }
         public HashSet<string> Toppings { get; set; }
-        public double Price { get; set; }
+        public decimal? Price { get; set; }
 
 
         public void MakePizza(bool sauce, HashSet<string> toppings, string size)
@@ -38,7 +38,7 @@ namespace PizzaStore.Library
             }
             if (size == "m")
             {
-                Price += 8.00 * numberofpizza;
+                Price = Price + 8.00 * numberofpizza;
             }
             if (size == "l")
             {

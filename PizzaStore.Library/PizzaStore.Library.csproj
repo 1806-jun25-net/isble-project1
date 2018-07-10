@@ -10,4 +10,8 @@
     <None Remove="Interface\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PizzaStore.Data\PizzaStore.Data.csproj" />
+  </ItemGroup>
+
 </Project>

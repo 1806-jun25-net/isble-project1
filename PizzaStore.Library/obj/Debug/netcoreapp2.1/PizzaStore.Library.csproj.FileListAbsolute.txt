@@ -7,3 +7,6 @@ C:\Revature\isble-project1\PizzaStore.Library\obj\Debug\netcoreapp2.1\PizzaStore
 C:\Revature\isble-project1\PizzaStore.Library\obj\Debug\netcoreapp2.1\PizzaStore.Library.dll
 C:\Revature\isble-project1\PizzaStore.Library\obj\Debug\netcoreapp2.1\PizzaStore.Library.pdb
 C:\Revature\isble-project1\PizzaStore.Library\obj\Debug\netcoreapp2.1\PizzaStore.Library.csprojAssemblyReference.cache
+C:\Revature\isble-project1\PizzaStore.Library\bin\Debug\netcoreapp2.1\PizzaStore.Data.dll
+C:\Revature\isble-project1\PizzaStore.Library\bin\Debug\netcoreapp2.1\PizzaStore.Data.pdb
+C:\Revature\isble-project1\PizzaStore.Library\obj\Debug\netcoreapp2.1\PizzaStore.Library.csproj.CopyComplete
