@@ -39,7 +39,7 @@ namespace PizzaStoreTest
             User testUser = new User("joseph", "isble", "1");
             PizzaPie testPizza = new PizzaPie();
             testPizza.MakePizza(true, new HashSet<string> { "pineapple" }, "m");
-            var testOrder = new Order(10, testPizza.Toppings, testUser, testLocation, testPizza);
+            var testOrder = new Order(10, testPizza.Toppings, testUser, testLocation.StoreNumber, testPizza);
 
             testUser.SetOrderHistory(testOrder);
 
@@ -53,7 +53,7 @@ namespace PizzaStoreTest
             var testLocation = new Location("1");
             PizzaPie testPizza = new PizzaPie();
             testPizza.MakePizza(true, new HashSet<string> { "pineapple" }, "m");
-            var testOrder = new Order(10, testPizza.Toppings, new User("joseph", "isble", "1"), testLocation, testPizza);
+            var testOrder = new Order(10, testPizza.Toppings, new User("joseph", "isble", "1"), testLocation.StoreNumber, testPizza);
 
             testLocation.DecreaseInventory(testOrder);
 

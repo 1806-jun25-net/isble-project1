@@ -12,4 +12,3 @@ C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.p
 C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\PizzaStore.Library.dll
 C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\PizzaStore.Library.pdb
 C:\Revature\isble-project1\PizzaStore.UI\obj\Debug\netcoreapp2.1\PizzaStore.UI.csproj.CopyComplete
-C:\Revature\isble-project1\PizzaStore.UI\bin\Debug\netcoreapp2.1\appsettings.json

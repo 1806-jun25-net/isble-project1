@@ -11,7 +11,7 @@ namespace PizzaStore.Library
         public int HowManyPizzas { get; set; }
         public PizzaPie Pizza { get; set; }
         public HashSet<string> Toppings { get; set; }
-        public Location Location { get; set; }
+        public string Location { get; set; }
         public DateTime TimeOfOrder { get; set; }
         public double Price { get; set; }
 
@@ -20,7 +20,7 @@ namespace PizzaStore.Library
 
         }
 
-        public Order(int numberofpizzas, HashSet<string> toppings, User user, Location location, PizzaPie pizza)
+        public Order(int numberofpizzas, HashSet<string> toppings, User user, string location, PizzaPie pizza)
         {
             if (numberofpizzas <= 0 || numberofpizzas > 12)
             {

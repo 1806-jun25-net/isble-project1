@@ -155,7 +155,7 @@ namespace PizzaStore.UI
                                 PizzaPie NewPizza = new PizzaPie();
                                 try
                                 {
-                                    Order TestOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation], NewPizza);
+                                    Order TestOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation].StoreNumber, NewPizza);
                                 }
                                 catch (ArgumentException ex)
                                 {
@@ -163,7 +163,7 @@ namespace PizzaStore.UI
                                     break; 
                                 }
 
-                                Order NewOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation], NewPizza);
+                                Order NewOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation].StoreNumber, NewPizza);
 
                                 Console.Write("What size pizza would you like? (S, M, L):");
                                 string pizzaSize = Console.ReadLine().ToLower().Replace(" ", string.Empty);
