@@ -1,24 +1,36 @@
-CREATE SCHEMA PizzaStore
-GO
+--CREATE SCHEMA PizzaStore
+--GO
 
+--DROP TABLE PizzaStore.Users
 CREATE TABLE PizzaStore.Users
 (
-	ID INT,
-	FirstName NVARCHAR(128),
-	LastName NVARCHAR(128),
-	PrefLocation INT	
+	ID INT IDENTITY NOT NULL,
+	FirstName NVARCHAR(128) NOT NULL,
+	LastName NVARCHAR(128) NOT NULL,
+	PrefLocation INT NOT NULL
 );
 
+--DROP TABLE PizzaStore.Locations
 CREATE TABLE PizzaStore.Locations
 (
-	StoreNumber INT
+	StoreNumber INT IDENTITY NOT NULL
 );
 
+--DROP TABLE PizzaStore.Orders
 CREATE TABLE PizzaStore.Orders
 (
-	OrderID INT,
-	StoreNumber INT,
-	TotalPizzas INT,	
+	OrderID INT IDENTITY NOT NULL,
+	UserID INT NOT NULL,
+	StoreNumber INT NOT NULL,
+	TotalPizzas INT NOT NULL,	
+	Price MONEY,
+	TimeOfOrder DATETIME
+);
+
+CREATE TABLE PizzaStore.PizzaPie
+(
+	ID INT NOT NULL,
+	OrderID INT NOT NULL,
 	Onion BIT,
 	Pepper BIT,
 	Pineapple BIT,
@@ -27,13 +39,13 @@ CREATE TABLE PizzaStore.Orders
 	Sausage BIT,
 	BBQChicken BIT,
 	Pepperoni BIT,
-	Price MONEY,
-	TimeOfOrder DATETIME
-);
+)
 
+
+--DROP TABLE PizzaStore.Inventory;
 CREATE TABLE PizzaStore.Inventory
 (
-	InventoryID INT,
+	InventoryID INT IDENTITY NOT NULL,
 	Dough INT,
 	Cheese INT,
 	Sauce INT,
@@ -45,16 +57,30 @@ CREATE TABLE PizzaStore.Inventory
 	Sausage INT,
 	BBQChicken INT,
 	Pepperoni INT
-)
+);
 
 
+ALTER TABLE PizzaStore.Pizza
+ADD CONSTRAINT PK_Pizza_ID PRIMARY KEY (ID)
+
+ALTER TABLE PizzaStore.Pizza
+ADD CONSTRAINT FK_Pizza_UserID FOREIGN KEY (UserID) REFERENCES PizzaStore.Users(ID)
+GO
+
+ALTER TABLE PizzaStore.Pizza
+ADD CONSTRAINT FK_Pizza_OrderID FOREIGN KEY (OrderID) REFERENCES PizzaStore.Orders(OrderID)
+GO
 
 ALTER TABLE PizzaStore.Locations
 ADD CONSTRAINT PK_Locations_StoreNumber PRIMARY KEY (StoreNumber)
 GO
 
+ALTER TABLE PizzaStore.Inventory
+ADD CONSTRAINT FK_Inventory_InventoryID FOREIGN KEY (InventoryID) REFERENCES PizzaStore.Locations(StoreNumber)
+GO
+
 ALTER TABLE PizzaStore.Users
-ADD CONSTRAINT FK_Users_PrefLocation FOREIGN KEY (PrefLocation) REFERENCES PizzaShop.Locations(StoreNumber)
+ADD CONSTRAINT FK_Users_PrefLocation FOREIGN KEY (PrefLocation) REFERENCES PizzaStore.Locations(StoreNumber)
 GO
 
 ALTER TABLE PizzaStore.Users
@@ -66,7 +92,7 @@ ADD CONSTRAINT PK_Orders_OrderID PRIMARY KEY (OrderID)
 GO
 
 ALTER TABLE PizzaStore.Orders
-ADD CONSTRAINT FK_Order_StoreNumber FOREIGN KEY (StoreNumber) REFERENCES PizzaShop.Location(StoreNumber)
+ADD CONSTRAINT FK_Order_StoreNumber FOREIGN KEY (StoreNumber) REFERENCES PizzaStore.Locations(StoreNumber)
 GO
 
 

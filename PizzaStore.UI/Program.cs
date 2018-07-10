@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using NLog;
+using PizzaStore.Data;
 using PizzaStore.Library;
+using PizzaStore.Library.PizzaStoreRepo;
 
 namespace PizzaStore.UI
 {
@@ -15,6 +19,19 @@ namespace PizzaStore.UI
         static void Main(string[] args)
         {
             logger.Info("Application start");
+
+
+            var configBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            var configuration = configBuilder.Build();
+            var optionsBuilder = new DbContextOptionsBuilder<PizzaStoreDbContext>();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("RestaurantReviewsDB"));
+            var options = optionsBuilder.Options;
+
+            var dbContext = new PizzaStoreDbContext(options);
+            var PizzaStoreRepository = new PizzaStoreRepository(dbContext);
+
 
             var userSerializer = new XmlSerializer(typeof(List<User>));
             var locationSerializer = new XmlSerializer(typeof(List<Location>));
