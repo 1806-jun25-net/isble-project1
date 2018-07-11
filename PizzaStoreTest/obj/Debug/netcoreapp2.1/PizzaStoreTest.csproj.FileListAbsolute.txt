@@ -17,6 +17,6 @@ C:\Revature\isble-project1\PizzaStoreTest\bin\Debug\netcoreapp2.1\PizzaStore.UI.
 C:\Revature\isble-project1\PizzaStoreTest\bin\Debug\netcoreapp2.1\PizzaStore.Library.pdb
 C:\Revature\isble-project1\PizzaStoreTest\bin\Debug\netcoreapp2.1\PizzaStore.UI.pdb
 C:\Revature\isble-project1\PizzaStoreTest\obj\Debug\netcoreapp2.1\PizzaStoreTest.csproj.CopyComplete
-C:\Revature\isble-project1\PizzaStoreTest\bin\Debug\netcoreapp2.1\appsettings.json
 C:\Revature\isble-project1\PizzaStoreTest\bin\Debug\netcoreapp2.1\PizzaStore.Data.dll
 C:\Revature\isble-project1\PizzaStoreTest\bin\Debug\netcoreapp2.1\PizzaStore.Data.pdb
+C:\Revature\isble-project1\PizzaStoreTest\bin\Debug\netcoreapp2.1\appsettings.json

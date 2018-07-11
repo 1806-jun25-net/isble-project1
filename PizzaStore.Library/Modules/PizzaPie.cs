@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace PizzaStore.Library
 {
     //aspects of a pizza
     public class PizzaPie
     {
+        public int ID { get; set; }
+        public int OrderID { get; set; }
         public string Size { get; set; }
         public bool Sauce { get; set; }
         public HashSet<string> Toppings { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
+        [XmlIgnore]
+        public Dictionary<string,bool> ToppingsDict { get; set; }
+        
 
 
         public void MakePizza(bool sauce, HashSet<string> toppings, string size)
@@ -34,15 +40,15 @@ namespace PizzaStore.Library
         {
             if(size == "s")
             {
-                Price += 7.00 * numberofpizza;
+                Price += (decimal)7.00 * numberofpizza;
             }
             if (size == "m")
             {
-                Price = Price + 8.00 * numberofpizza;
+                Price += (decimal)8.00 * numberofpizza;
             }
             if (size == "l")
             {
-                Price += 9.00 * numberofpizza;
+                Price += (decimal)9.00 * numberofpizza;
             }
             foreach (var top in toppings)
             {
@@ -50,14 +56,18 @@ namespace PizzaStore.Library
                 List<string> Other = new List<string> { "onion", "pepper", "pineapple" };
                 if (Meat.Contains(top))
                 {
-                    Price += 1.00 * numberofpizza;
+                    Price += (decimal)1.00 * numberofpizza;
                 }
 
                 if (Other.Contains(top))
                 {
-                    Price += 0.50 * numberofpizza;
+                    Price += (decimal)0.50 * numberofpizza;
                 }
-            }
+            }   
+        }
+        public void UpdatePizzaID(int id)
+        {
+            ID = id;
         }
     }
 }

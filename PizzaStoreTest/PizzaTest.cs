@@ -29,7 +29,7 @@ namespace PizzaStoreTest
 
             testPizza.PricePizza("m", testPizza.Toppings, 10);
 
-            Assert.Equal(8.50 * 10, testPizza.Price);
+            Assert.Equal((decimal)8.50 * 10, testPizza.Price);
         }
 
         [Fact]
@@ -59,6 +59,9 @@ namespace PizzaStoreTest
 
             Assert.Equal(990, testLocation.Pineapple);
         }
+
+
+
 
         //[Fact]
         //public void ()

@@ -15,7 +15,6 @@ namespace PizzaStore.Data
         {
         }
 
-        public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<Locations> Locations { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<PizzaPie> PizzaPie { get; set; }
@@ -30,26 +29,13 @@ namespace PizzaStore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Inventory>(entity =>
-            {
-                entity.ToTable("Inventory", "PizzaStore");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.Bbqchicken).HasColumnName("BBQChicken");
-
-                entity.Property(e => e.InventoryId)
-                    .HasColumnName("InventoryID")
-                    .ValueGeneratedOnAdd();
-            });
-
             modelBuilder.Entity<Locations>(entity =>
             {
                 entity.HasKey(e => e.StoreNumber);
 
                 entity.ToTable("Locations", "PizzaStore");
+
+                entity.Property(e => e.Bbqchicken).HasColumnName("BBQChicken");
             });
 
             modelBuilder.Entity<Orders>(entity =>

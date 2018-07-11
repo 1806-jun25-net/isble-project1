@@ -14,8 +14,8 @@ namespace PizzaStore.Data
         public int UserId { get; set; }
         public int StoreNumber { get; set; }
         public int TotalPizzas { get; set; }
-        public decimal? Price { get; set; }
-        public DateTime? TimeOfOrder { get; set; }
+        public decimal Price { get; set; }
+        public DateTime TimeOfOrder { get; set; }
 
         public Locations StoreNumberNavigation { get; set; }
         public Users User { get; set; }

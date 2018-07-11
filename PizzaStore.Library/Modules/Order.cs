@@ -9,12 +9,13 @@ namespace PizzaStore.Library
     {
         public int OrderID { get; set; }
         public string User { get; set; }
+        public int UserID { get; set; }
         public int HowManyPizzas { get; set; }
         public PizzaPie Pizza { get; set; }
         public HashSet<string> Toppings { get; set; }
         public int Location { get; set; }
         public DateTime TimeOfOrder { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         public Order()
         {
@@ -56,7 +57,7 @@ namespace PizzaStore.Library
             Pizza = pizza;
         }
 
-        public void UpdatePriceOfOrder(decimal? price)
+        public void UpdatePriceOfOrder(decimal price)
         {
             Price = price;
         }
@@ -64,6 +65,11 @@ namespace PizzaStore.Library
         public void TimepizzaWasOrdered()
         {
             TimeOfOrder = DateTime.Now;
+        }
+
+        public void UpdateUserId(int userid)
+        {
+            UserID = userid;
         }
     }
 }
