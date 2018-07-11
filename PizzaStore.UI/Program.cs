@@ -193,7 +193,7 @@ namespace PizzaStore.UI
                                     }
                                     try
                                     {
-                                        Order TestOrder = new Order(NumberOfPizza, toppingsset, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation].StoreNumber, NewPizza);
+                                        Order TestOrder = new Order(NumberOfPizza, toppingsset, NewUser, NewUser.PrefLocation, NewPizza);
                                     }
                                     catch (ArgumentException ex)
                                     {
