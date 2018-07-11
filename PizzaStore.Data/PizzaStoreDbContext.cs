@@ -69,9 +69,7 @@ namespace PizzaStore.Data
             {
                 entity.ToTable("PizzaPie", "PizzaStore");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Bbqchicken).HasColumnName("BBQChicken");
 

@@ -90,7 +90,6 @@ namespace PizzaStore.UI
             if (whichProgram == "db")
             {
                 bool running = true;
-                //bool stillOrdering = true;
                 string FirstName = "";
                 string LastName = "";
 
@@ -126,12 +125,12 @@ namespace PizzaStore.UI
                 }
 
                 Console.WriteLine($"Welcome {FirstName} {LastName}. Type a command for what you would like to do.");
-                //Console.WriteLine($"There is {Location_Dict["4"].Pepper} left in inventory at location 4");
+
                 while (running == true)
                 {
                     User NewUser = PizzaStoreRepository.GetUser(FirstName,LastName,PizzaStoreRepository.GetUserLocation(FirstName, LastName));
                     string Input = "";
-                    Console.WriteLine("Commands are: order, Order history, change location, quit");
+                    Console.WriteLine("Commands are: order, history, quit");
                     Input = Console.ReadLine().ToLower();
                     switch (Input)
                     {
@@ -149,18 +148,22 @@ namespace PizzaStore.UI
                                     }
                                     Library.PizzaPie newPizza = new Library.PizzaPie();
                                     newPizza.MakePizza(PizzaStoreRepository.GetUserOrders(NewUser).Pizza.Sauce, PizzaStoreRepository.GetUserOrders(NewUser).Pizza.Toppings, PizzaStoreRepository.GetUserOrders(NewUser).Pizza.Size);
-                                    Order NewOrder = new Order(PizzaStoreRepository.GetUserOrders(NewUser).HowManyPizzas, PizzaStoreRepository.GetUserOrders(NewUser).Pizza.Toppings, NewUser,NewUser.PrefLocation, PizzaStoreRepository.GetUserOrders(NewUser).Pizza);
+                                    Order PrefOrder = new Order(PizzaStoreRepository.GetUserOrders(NewUser).HowManyPizzas, PizzaStoreRepository.GetUserOrders(NewUser).Pizza.Toppings, NewUser,NewUser.PrefLocation, PizzaStoreRepository.GetUserOrders(NewUser).Pizza);
 
-                                    NewOrder.AddPizzaToOrder(newPizza);
-                                    NewOrder.UpdateToppings(newPizza.Toppings);
-                                    NewOrder.UpdatePriceOfOrder(newPizza.Price);
-                                    NewOrder.TimepizzaWasOrdered();
+                                    PrefOrder.AddPizzaToOrder(newPizza);
+                                    PrefOrder.UpdateToppings(newPizza.Toppings);
+                                    PrefOrder.UpdatePriceOfOrder(newPizza.Price);
+                                    PrefOrder.TimepizzaWasOrdered();
 
                                     int new_user_id = PizzaStoreRepository.GetUserID(NewUser);
 
-                                    NewOrder.UpdateUserId(new_user_id);
+                                    PrefOrder.UpdateUserId(new_user_id);
 
-                                    PizzaStoreRepository.AddOrderToDB(NewOrder);
+                                    PizzaStoreRepository.AddOrderToDB(PrefOrder);
+                                    PizzaStoreRepository.Save();
+
+                                    newPizza.UpdatePizzaOrderID(PizzaStoreRepository.GetUserOrders(NewUser).OrderID);
+                                    PizzaStoreRepository.AddPizzaToDB(newPizza);
                                     PizzaStoreRepository.Save();
 
                                     Console.WriteLine("Order has been created!");
@@ -170,11 +173,27 @@ namespace PizzaStore.UI
                                     Console.WriteLine("How many pizzas will you be ordering?");
                                     string input = Console.ReadLine().ToLower();
                                     NumberOfPizza = Convert.ToInt32(input);
-                                    HashSet<string> toppings = new HashSet<string>();
+                                    Dictionary<string, bool> toppings = new Dictionary<string, bool>()
+                                    {
+                                        {"pepperoni", false },
+                                        {"ham", false },
+                                        {"chicken", false },
+                                        {"sausage", false },
+                                        {"bbqchicken", false },
+                                        {"onion", false },
+                                        {"pepper", false },
+                                        {"pineapple", false }
+                                    };
+                                    HashSet<string> toppingsset = new HashSet<string>();
                                     Library.PizzaPie NewPizza = new Library.PizzaPie();
+
+                                    foreach (var item in toppings.Keys)
+                                    {
+                                        toppingsset.Add(item);
+                                    }
                                     try
                                     {
-                                        Order TestOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation].StoreNumber, NewPizza);
+                                        Order TestOrder = new Order(NumberOfPizza, toppingsset, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation].StoreNumber, NewPizza);
                                     }
                                     catch (ArgumentException ex)
                                     {
@@ -182,7 +201,7 @@ namespace PizzaStore.UI
                                         break;
                                     }
 
-                                    Order NewOrder = new Order(NumberOfPizza, toppings, Users_Dict[FirstLast], Location_Dict[Users_Dict[FirstLast].PrefLocation].StoreNumber, NewPizza);
+                                    Order NewOrder = new Order(NumberOfPizza, toppingsset, NewUser, NewUser.PrefLocation, NewPizza);
 
                                     Console.Write("What size pizza would you like? (S, M, L):");
                                     string pizzaSize = Console.ReadLine().ToLower().Replace(" ", string.Empty);
@@ -214,14 +233,18 @@ namespace PizzaStore.UI
                                         {
                                             break;
                                         }
-                                        toppings.Add(topping);
+                                        else
+                                        {
+                                            toppingsset.Add(topping);
+                                            NewPizza.ToppingsDict[topping] = true;
+                                        }
 
                                     }
 
 
                                     try
                                     {
-                                        NewPizza.MakePizza(sauce, toppings, pizzaSize);
+                                        NewPizza.MakePizza(sauce, toppingsset, pizzaSize);
                                     }
                                     catch (ArgumentException)
                                     {
@@ -229,26 +252,35 @@ namespace PizzaStore.UI
                                     }
 
 
-                                    NewPizza.PricePizza(pizzaSize, toppings, NumberOfPizza);
+                                    NewPizza.PricePizza(pizzaSize, toppingsset, NumberOfPizza);
                                     if (NewPizza.Price > 500)
                                     {
                                         Console.WriteLine("Price of pizza is too high, canceling order");
                                         break;
                                     }
 
+
+                                    NewPizza.MakePizzaDict(sauce, NewPizza.ToppingsDict, pizzaSize);
+                                   
                                     NewOrder.AddPizzaToOrder(NewPizza);
-                                    NewOrder.UpdateToppings(toppings);
+                                    NewOrder.UpdateToppings(NewPizza.Toppings);
                                     NewOrder.UpdatePriceOfOrder(NewPizza.Price);
                                     NewOrder.TimepizzaWasOrdered();
 
-                                    Location_Dict[location].DecreaseInventory(NewOrder);
+                                    int newuserid = PizzaStoreRepository.GetUserID(NewUser);
 
-                                    Users_Dict[FirstLast].SetOrderHistory(NewOrder);
+                                    NewOrder.UpdateUserId(newuserid);
+
+                                    PizzaStoreRepository.AddOrderToDB(NewOrder);
+                                    PizzaStoreRepository.Save();
+
+                                    NewPizza.UpdatePizzaOrderID(PizzaStoreRepository.GetUserOrders(NewUser).OrderID);
+                                    NewPizza.UpdateToppingDict(toppings);
+                                    PizzaStoreRepository.AddPizzaToDB(NewPizza);
+                                    PizzaStoreRepository.Save();
 
 
                                     Console.WriteLine("Order has been made");
-
-                                    Location_Dict[location].SetOrderHistory(NewOrder);
 
                                     Console.WriteLine();
 
@@ -256,106 +288,43 @@ namespace PizzaStore.UI
                             }
                             break;
 
-                        case "change location":
-                            while (true)
+                        case "history":
+                            List<Order> orderhistory = PizzaStoreRepository.GetUserOrderHistory(NewUser);
+                            Console.WriteLine("How would you like to sort your order history?");
+                            Console.WriteLine("cheapest, most expensive, earliest, latest");
+                            string sort = Console.ReadLine().ToLower();
+                            if (sort == "earliest")
                             {
-                                Console.Write("Please enter the store ID you would like to change to, 1, 2, 3, or 4:");
-                                string input = Console.ReadLine().ToLower().Replace(" ", string.Empty);
-                                int IntInput = Convert.ToInt32(input);
-                                if (Location_Dict.ContainsKey(IntInput))
+                                foreach (var item in orderhistory)
                                 {
-                                    Users_Dict[FirstLast].PrefLocation = IntInput;
-                                    Console.WriteLine("Preferred location has been updated");
-                                    break;
+                                    Console.WriteLine($"Order:{item.OrderID} you ordered:{item.HowManyPizzas} Pizzas From: Store {item.Location} At:{item.TimeOfOrder} and it cost: ${item.Price}");
                                 }
-                                else
+                            }
+                            if (sort == "latest")
+                            {
+                                orderhistory.Reverse();
+                                foreach (var item in orderhistory)
                                 {
-                                    Console.WriteLine("That is not a valid store ID");
+
+                                    Console.WriteLine($"Order:{item.OrderID} you ordered:{item.HowManyPizzas} From:{item.Location} At:{item.TimeOfOrder} and cost: ${item.Price}");
                                 }
+                            }
+                            if (sort == "cheapest")
+                            {
+
+                            }
+                            if (sort == "most exspensive")
+                            {
+
                             }
                             break;
 
                         case "quit":
                             running = false;
-
-                            List<User> userList = new List<User>();
-                            List<Location> locationList = new List<Location>();
-
-                            foreach (KeyValuePair<string, User> item in Users_Dict)
-                            {
-                                userList.Add(item.Value);
-                            }
-                            try
-                            {
-                                using (var stream = new FileStream("User_data.xml", FileMode.Create))
-                                {
-                                    userSerializer.Serialize(stream, userList);
-                                }
-                            }
-                            catch (IOException ex)
-                            {
-                                Console.WriteLine($"Error during save: {ex.Message}");
-                            }
-
-                            foreach (KeyValuePair<int, Location> item in Location_Dict)
-                            {
-                                locationList.Add(item.Value);
-                            }
-                            try
-                            {
-                                using (var stream = new FileStream("Location_data.xml", FileMode.Create))
-                                {
-                                    locationSerializer.Serialize(stream, locationList);
-                                }
-                            }
-                            catch (IOException ex)
-                            {
-                                Console.WriteLine($"Error during save: {ex.Message}");
-                            }
                             break;
                     }
                 }
             }
-
-
-
-
-
-            //HashSet<string> new_toppings = new HashSet<string>() { "onion", "ham" };
-
-
-            //User new_user = new User(FirstName, LastName, 1);
-            //PizzaStoreRepository.AddUserToDB(new_user);
-            //PizzaStoreRepository.Save();
-            //Library.PizzaPie new_pizza = new Library.PizzaPie();
-            //new_pizza.MakePizza(true, new_toppings, "m");
-            //new_pizza.PricePizza("m", new_toppings, 10);
-            //Order new_order = new Order(10, new_toppings, new_user, new_user.PrefLocation, new_pizza);
-
-
-
-            //new_order.AddPizzaToOrder(new_pizza);
-            //new_order.UpdateToppings(new_toppings);
-            //new_order.UpdatePriceOfOrder(new_pizza.Price);
-            //new_order.TimepizzaWasOrdered();
-
-            //int new_user_id = PizzaStoreRepository.GetUserID(new_user);
-
-            //new_order.UpdateUserId(new_user_id);
-
-            ////PizzaStoreRepository.;
-            ////PizzaStoreRepository.AddUserToDB(new_user);
-            ////PizzaStoreRepository.Save();
-            //PizzaStoreRepository.AddOrderToDB(new_order);
-            //PizzaStoreRepository.Save();
-            //var ListOfUsers = PizzaStoreRepository.GetUsers();
-
-            //foreach (var item in ListOfUsers)
-            //{
-            //    Console.WriteLine(item);
-
-            //}
-            //Console.ReadLine();
 
             else
             {

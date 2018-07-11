@@ -112,17 +112,33 @@ namespace PizzaStore.Library.PizzaStoreRepo
             return false;
         }
 
-        public Order GetUserOrders(User user)
+        public List<Order> GetUserOrderHistory(User user)
         {
             var orders = _db.Orders;
+            List<Order> ListOfOrders = new List<Order>();
             foreach (var item in orders)
             {
                 if (user.ID == item.UserId)
                 {
-                    return Mapper.Map(item);
+                    ListOfOrders.Add(Mapper.Map(item));
                 }
             }
-            return null;
+            return ListOfOrders;
+        }
+        public Order GetUserOrders(User user)
+        {
+            var orders = _db.Orders;
+            Order lastitem = new Order();
+
+
+            foreach (var item in orders)
+            {
+                if (user.ID == item.UserId)
+                {
+                    lastitem =  Mapper.Map(item);
+                }
+            }
+            return lastitem;
         }
 
         public void Save()

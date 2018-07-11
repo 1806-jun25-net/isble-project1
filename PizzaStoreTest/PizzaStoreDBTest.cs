@@ -10,21 +10,21 @@ namespace PizzaStoreTest
     public class PizzaStoreDBTest
     {
 
-        [Fact]
-        public void TestAddUserToDB()
-        {
-            User testuser = new User("Joseph","Isble", 1);
-            //AddUserToDB(testuser);
+        //[Fact]
+        //public void TestAddUserToDB()
+        //{
+        //    User testuser = new User("Joseph","Isble", 1);
+        //    //AddUserToDB(testuser);
 
 
-        }
+        //}
 
 
-        [Fact]
-        public void GetOrderHistoryFromDBTest()
-        {
+        //[Fact]
+        //public void GetOrderHistoryFromDBTest()
+        //{
 
-        }
+        //}
 
     }
 }

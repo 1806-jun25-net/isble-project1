@@ -15,8 +15,21 @@ namespace PizzaStore.Library
         public HashSet<string> Toppings { get; set; }
         public decimal Price { get; set; }
         [XmlIgnore]
-        public Dictionary<string,bool> ToppingsDict { get; set; }
-        
+        public Dictionary<string, bool> ToppingsDict { get; set; } = new Dictionary<string, bool>()
+        {
+            {"pepperoni", false },
+            {"ham", false },
+            {"chicken", false },
+            {"sausage", false },
+            {"bbqchicken", false },
+            {"onion", false },
+            {"pepper", false },
+            {"pineapple", false }
+        };
+
+
+
+
 
 
         public void MakePizza(bool sauce, HashSet<string> toppings, string size)
@@ -34,6 +47,14 @@ namespace PizzaStore.Library
                 }
             }
             Toppings = toppings;
+        }
+
+        public void MakePizzaDict(bool sauce, Dictionary<string, bool> toppings, string size)
+        {
+            Sauce = sauce;
+            Size = size;
+            ToppingsDict = toppings;
+            Size = size;
         }
 
         public void PricePizza(string size, HashSet<string> toppings, int numberofpizza)
@@ -65,9 +86,22 @@ namespace PizzaStore.Library
                 }
             }   
         }
-        public void UpdatePizzaID(int id)
+        public void UpdatePizzaOrderID(int id)
         {
-            ID = id;
+            OrderID = id;
+        }
+
+        public void UpdateToppingDict(Dictionary<string,bool> toppings)
+        {
+            ToppingsDict["pepperoni"] = toppings["pepperoni"];
+            ToppingsDict["sausage"] = toppings["sausage"];
+            ToppingsDict["onion"] = toppings["onion"];
+            ToppingsDict["pepper"] = toppings["pepper"];
+            ToppingsDict["ham"] = toppings["ham"];
+            ToppingsDict["bbqchicken"] = toppings["bbqchicken"];
+            ToppingsDict["chicken"] = toppings["chicken"];
+            ToppingsDict["pineapple"] = toppings["pineapple"];
+
         }
     }
 }

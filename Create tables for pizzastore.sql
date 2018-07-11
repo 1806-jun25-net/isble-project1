@@ -41,7 +41,7 @@ CREATE TABLE PizzaStore.Orders
 --DROP TABLE PizzaStore.PizzaPie
 CREATE TABLE PizzaStore.PizzaPie
 (
-	ID INT NOT NULL,
+	ID INT IDENTITY NOT NULL,
 	OrderID INT NOT NULL,
 	Onion BIT NOT NULL,
 	Pepper BIT NOT NULL,
@@ -78,8 +78,8 @@ CREATE TABLE PizzaStore.PizzaPie
 --ADD CONSTRAINT PK_Inventory_ID PRIMARY KEY (ID)
 --GO
 
-ALTER TABLE PizzaStore.PizzaPie
-ADD CONSTRAINT PK_PizzaPie_ID PRIMARY KEY (ID)
+ALTER TABLE PizzaStore.Orders
+ADD CONSTRAINT FK_Order_StoreNumber FOREIGN KEY (StoreNumber) REFERENCES PizzaStore.Locations(StoreNumber)
 GO
 
 ALTER TABLE PizzaStore.Orders
@@ -90,9 +90,6 @@ ALTER TABLE PizzaStore.PizzaPie
 ADD CONSTRAINT FK_PizzaPie_OrderID FOREIGN KEY (OrderID) REFERENCES PizzaStore.Orders(OrderID)
 GO
 
-ALTER TABLE PizzaStore.Locations
-ADD CONSTRAINT PK_Locations_StoreNumber PRIMARY KEY (StoreNumber)
-GO
 
 ALTER TABLE PizzaStore.Inventory
 ADD CONSTRAINT FK_Inventory_InventoryID FOREIGN KEY (InventoryID) REFERENCES PizzaStore.Locations(StoreNumber)
@@ -110,9 +107,15 @@ ALTER TABLE PizzaStore.Orders
 ADD CONSTRAINT PK_Orders_OrderID PRIMARY KEY (OrderID)
 GO
 
-ALTER TABLE PizzaStore.Orders
-ADD CONSTRAINT FK_Order_StoreNumber FOREIGN KEY (StoreNumber) REFERENCES PizzaStore.Locations(StoreNumber)
+ALTER TABLE PizzaStore.PizzaPie
+ADD CONSTRAINT PK_PizzaPie_ID PRIMARY KEY (ID)
 GO
+
+ALTER TABLE PizzaStore.Locations
+ADD CONSTRAINT PK_Locations_StoreNumber PRIMARY KEY (StoreNumber)
+GO
+
+
 
 INSERT INTO PizzaStore.Locations
 VALUES(1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000);
@@ -120,6 +123,22 @@ VALUES(1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000);
 INSERT INTO PizzaStore.Locations
 VALUES(1,1,1,1,1,1,1,1,1,1,1);
 
+INSERT INTO PizzaStore.Locations
+VALUES(50,100,20,500,234,454,12,566,135,135,516);
+
+INSERT INTO PizzaStore.Locations
+VALUES(5,123,633,789,346,262,16,153,156,151,774);
+
 SELECT * FROM PizzaStore.Locations;
 
 SELECT * FROM PizzaStore.Users;
+
+SELECT * FROM PizzaStore.Orders;
+
+SELECT * FROM PizzaStore.PizzaPie
+
+DELETE FROM PizzaStore.Users
+WHERE PizzaStore.Users.ID = 5
+
+DELETE FROM PizzaStore.PizzaPie
+WHERE PizzaStore.PizzaPie.ID =0;
