@@ -2,6 +2,7 @@
 using PizzaStore.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PizzaStore.Library.PizzaStoreRepo
@@ -35,6 +36,30 @@ namespace PizzaStore.Library.PizzaStoreRepo
 
             _db.Add(Mapper.Map(user));
         }
+        
+        //Sort order history section
+        public List<Order> SortOrderHistoryTimeOfOrderDescending()
+        {
+            var orders = _db.Orders;
+            return (List<Order>)Mapper.Map(orders.OrderByDescending(x => x.TimeOfOrder));
+        }
+        public List<Order> SortOrderHistoryTimeOfOrderAscending()
+        {
+            var orders = _db.Orders;
+            return (List<Order>)Mapper.Map(orders.OrderBy(x => x.TimeOfOrder));
+        }
+        public List<Order> SortOrderHistoryPriceOfOrderDescending()
+        {
+            var orders = _db.Orders;
+            return (List<Order>)Mapper.Map(orders.OrderByDescending(x => x.Price));
+        }
+        public List<Order> SortOrderHistoryPriceOfOrderAscending()
+        {
+            var orders = _db.Orders;
+            return (List<Order>)Mapper.Map(orders.OrderBy(x => x.Price));
+        }
+
+
 
         public bool IsLocationInDB(int loc)
         {
@@ -131,7 +156,6 @@ namespace PizzaStore.Library.PizzaStoreRepo
             var orders = _db.Orders;
             Order lastitem = new Order();
 
-
             foreach (var item in orders)
             {
                 if (user.ID == item.UserId)
@@ -140,6 +164,11 @@ namespace PizzaStore.Library.PizzaStoreRepo
                 }
             }
             return lastitem;
+        }
+
+        public void UpdateLocationInventory(int storenumber)
+        {
+            //TODO: implement this
         }
 
         public void Save()
