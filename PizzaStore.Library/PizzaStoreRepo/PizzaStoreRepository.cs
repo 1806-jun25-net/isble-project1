@@ -32,6 +32,7 @@ namespace PizzaStore.Library.PizzaStoreRepo
 
         public void AddUserToDB(User user)
         {
+
             _db.Add(Mapper.Map(user));
         }
 
