@@ -78,6 +78,11 @@ CREATE TABLE PizzaStore.PizzaPie
 --ADD CONSTRAINT PK_Inventory_ID PRIMARY KEY (ID)
 --GO
 
+ALTER TABLE PizzaStore.Inventory
+ADD CONSTRAINT FK_Inventory_InventoryID FOREIGN KEY (InventoryID) REFERENCES PizzaStore.Locations(StoreNumber)
+GO
+
+
 ALTER TABLE PizzaStore.Orders
 ADD CONSTRAINT FK_Order_StoreNumber FOREIGN KEY (StoreNumber) REFERENCES PizzaStore.Locations(StoreNumber)
 GO
@@ -90,10 +95,6 @@ ALTER TABLE PizzaStore.PizzaPie
 ADD CONSTRAINT FK_PizzaPie_OrderID FOREIGN KEY (OrderID) REFERENCES PizzaStore.Orders(OrderID)
 GO
 
-
-ALTER TABLE PizzaStore.Inventory
-ADD CONSTRAINT FK_Inventory_InventoryID FOREIGN KEY (InventoryID) REFERENCES PizzaStore.Locations(StoreNumber)
-GO
 
 ALTER TABLE PizzaStore.Users
 ADD CONSTRAINT FK_Users_PrefLocation FOREIGN KEY (PrefLocation) REFERENCES PizzaStore.Locations(StoreNumber)
@@ -115,7 +116,8 @@ ALTER TABLE PizzaStore.Locations
 ADD CONSTRAINT PK_Locations_StoreNumber PRIMARY KEY (StoreNumber)
 GO
 
-
+INSERT INTO PizzaStore.Users
+VALUES('Joseph','Isble',2)
 
 INSERT INTO PizzaStore.Locations
 VALUES(1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000);
@@ -141,4 +143,4 @@ DELETE FROM PizzaStore.Users
 WHERE PizzaStore.Users.ID = 5
 
 DELETE FROM PizzaStore.PizzaPie
-WHERE PizzaStore.PizzaPie.ID =0;
+WHERE PizzaStore.PizzaPie.ID =5;

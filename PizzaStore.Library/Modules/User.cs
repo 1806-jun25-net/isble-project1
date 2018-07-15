@@ -27,6 +27,12 @@ namespace PizzaStore.Library
             OrderHistory.Add(order);
         }
 
+        public User(string first, string last)
+        {
+            First = first;
+            Last = last;
+        }
+
         public User(string first, string last, int storeNumber)
         {
             First = first;

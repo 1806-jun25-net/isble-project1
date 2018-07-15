@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PizzaStore.Data;
+using PizzaStore.Library.PizzaStoreRepo;
 
 namespace PizzaStore.WebApp
 {
@@ -29,7 +32,9 @@ namespace PizzaStore.WebApp
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddScoped<PizzaStoreRepository>();
+            services.AddDbContext<PizzaStoreDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("PizzastoreDB")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

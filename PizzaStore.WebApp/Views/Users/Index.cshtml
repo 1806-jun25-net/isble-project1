@@ -1,0 +1,46 @@
+﻿@model IEnumerable<PizzaStore.WebApp.Models.User>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h2>Index</h2>
+
+<form asp-action="Index" method="get">
+    Search: <input type="search" name="search" />
+    <button type="submit">Submit</button>
+</form>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

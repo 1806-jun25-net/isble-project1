@@ -40,7 +40,6 @@ namespace PizzaStore.UI
             Dictionary<string, User> Users_Dict = new Dictionary<string, User>();
             Dictionary<int, Location> Location_Dict = new Dictionary<int, Location>();
 
-
             try
             {
                 using (var stream = new FileStream("User_data.xml", FileMode.Open))
@@ -128,7 +127,15 @@ namespace PizzaStore.UI
 
                 while (running == true)
                 {
-                    User NewUser = PizzaStoreRepository.GetUser(FirstName,LastName,PizzaStoreRepository.GetUserLocation(FirstName, LastName));
+                    User NewUser = PizzaStoreRepository.GetUser(FirstName,LastName);
+
+                    List<Order> OrderHistory = PizzaStoreRepository.GetUserOrderHistory(NewUser);
+
+                    foreach (var item in OrderHistory)
+                    {
+                        Console.WriteLine(item);
+                    }
+
                     string Input = "";
                     Console.WriteLine("Commands are: order, history, quit");
                     Input = Console.ReadLine().ToLower();
@@ -147,8 +154,8 @@ namespace PizzaStore.UI
                                         break;
                                     }
                                     Library.PizzaPie newPizza = new Library.PizzaPie();
-                                    newPizza.MakePizza(PizzaStoreRepository.GetUserOrders(NewUser).Pizza.Sauce, PizzaStoreRepository.GetUserOrders(NewUser).Pizza.Toppings, PizzaStoreRepository.GetUserOrders(NewUser).Pizza.Size);
-                                    Order PrefOrder = new Order(PizzaStoreRepository.GetUserOrders(NewUser).HowManyPizzas, PizzaStoreRepository.GetUserOrders(NewUser).Pizza.Toppings, NewUser,NewUser.PrefLocation, PizzaStoreRepository.GetUserOrders(NewUser).Pizza);
+                                    newPizza.MakePizza(PizzaStoreRepository.GetUserRecentOrder(NewUser).Pizza.Sauce, PizzaStoreRepository.GetUserRecentOrder(NewUser).Pizza.Toppings, PizzaStoreRepository.GetUserRecentOrder(NewUser).Pizza.Size);
+                                    Order PrefOrder = new Order(PizzaStoreRepository.GetUserRecentOrder(NewUser).HowManyPizzas, PizzaStoreRepository.GetUserRecentOrder(NewUser).Pizza.Toppings, NewUser,NewUser.PrefLocation, PizzaStoreRepository.GetUserRecentOrder(NewUser).Pizza);
 
                                     PrefOrder.AddPizzaToOrder(newPizza);
                                     PrefOrder.UpdateToppings(newPizza.Toppings);
@@ -162,7 +169,7 @@ namespace PizzaStore.UI
                                     PizzaStoreRepository.AddOrderToDB(PrefOrder);
                                     PizzaStoreRepository.Save();
 
-                                    newPizza.UpdatePizzaOrderID(PizzaStoreRepository.GetUserOrders(NewUser).OrderID);
+                                    newPizza.UpdatePizzaOrderID(PizzaStoreRepository.GetUserRecentOrder(NewUser).OrderID);
                                     PizzaStoreRepository.AddPizzaToDB(newPizza);
                                     PizzaStoreRepository.Save();
 
@@ -236,7 +243,7 @@ namespace PizzaStore.UI
                                         else
                                         {
                                             toppingsset.Add(topping);
-                                            NewPizza.ToppingsDict[topping] = true;
+                                            toppings[topping] = true;
                                         }
 
                                     }
@@ -260,7 +267,7 @@ namespace PizzaStore.UI
                                     }
 
 
-                                    NewPizza.MakePizzaDict(sauce, NewPizza.ToppingsDict, pizzaSize);
+                                    NewPizza.MakePizzaDict(sauce, toppings, pizzaSize);
                                    
                                     NewOrder.AddPizzaToOrder(NewPizza);
                                     NewOrder.UpdateToppings(NewPizza.Toppings);
@@ -274,7 +281,7 @@ namespace PizzaStore.UI
                                     PizzaStoreRepository.AddOrderToDB(NewOrder);
                                     PizzaStoreRepository.Save();
 
-                                    NewPizza.UpdatePizzaOrderID(PizzaStoreRepository.GetUserOrders(NewUser).OrderID);
+                                    NewPizza.UpdatePizzaOrderID(PizzaStoreRepository.GetUserRecentOrder(NewUser).OrderID);
                                     NewPizza.UpdateToppingDict(toppings);
                                     PizzaStoreRepository.AddPizzaToDB(NewPizza);
                                     PizzaStoreRepository.Save();
@@ -365,7 +372,7 @@ namespace PizzaStore.UI
                 }
 
                 Console.WriteLine($"Welcome {FirstName} {LastName}. Type a command for what you would like to do.");
-                //Console.WriteLine($"There is {Location_Dict["4"].Pepper} left in inventory at location 4");
+
                 while (running == true)
                 {
                     int location = Users_Dict[FirstLast].PrefLocation;

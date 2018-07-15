@@ -16,6 +16,7 @@ namespace PizzaStore.Library.PizzaStoreRepo
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
+        //Add objects to respective table in Database
         public void AddPizzaToDB(PizzaPie pizza)
         {
             _db.Add(Mapper.Map(pizza));
@@ -60,7 +61,6 @@ namespace PizzaStore.Library.PizzaStoreRepo
         }
 
 
-
         public bool IsLocationInDB(int loc)
         {
             var locations = _db.Locations;
@@ -99,17 +99,51 @@ namespace PizzaStore.Library.PizzaStoreRepo
             return false;
         }
 
-        public User GetUser(string first, string last, int storenumber)
+        public List<User> GetUsers(string search = null)
+        {
+            var users = _db.Users;
+            List<User> listOfUsers = new List<User>();
+            if (search == null)
+            {
+                foreach (var item in users)
+                {
+                    listOfUsers.Add(Mapper.Map(item));
+                }
+            }
+            foreach (var item in users)
+            {
+                if (item.FirstName == search || item.LastName == search)
+                {
+                    listOfUsers.Add(Mapper.Map(item));
+                }
+            }
+            return listOfUsers;
+        }
+
+        public User GetUserById(int id)
         {
             var users = _db.Users;
             foreach (var item in users)
             {
-                if (first == item.FirstName && last == item.LastName && storenumber == item.PrefLocation)
+                if (id == item.Id)
                 {
                     return Mapper.Map(item);
                 }
             }
-            return new User(first,last,storenumber);
+            return null;
+        }
+
+        public User GetUser(string first, string last)
+        {
+            var users = _db.Users;
+            foreach (var item in users)
+            {
+                if (first == item.FirstName && last == item.LastName)
+                {
+                    return Mapper.Map(item);
+                }
+            }
+            return new User(first,last);
         }
 
         public int GetUserID(User user)
@@ -151,7 +185,22 @@ namespace PizzaStore.Library.PizzaStoreRepo
             }
             return ListOfOrders;
         }
-        public Order GetUserOrders(User user)
+
+        public List<Order> GetLocationOrderHistory(Location location)
+        {
+            var orders = _db.Orders;
+            List<Order> ListOfOrders = new List<Order>();
+            foreach (var item in orders)
+            {
+                if (location.StoreNumber == item.StoreNumber)
+                {
+                    ListOfOrders.Add(Mapper.Map(item));
+                }
+            }
+            return ListOfOrders;
+        }
+
+        public Order GetUserRecentOrder(User user)
         {
             var orders = _db.Orders;
             Order lastitem = new Order();
@@ -166,9 +215,9 @@ namespace PizzaStore.Library.PizzaStoreRepo
             return lastitem;
         }
 
-        public void UpdateLocationInventory(int storenumber)
+        public void UpdateLocationInventory(Location location)
         {
-            //TODO: implement this
+            _db.Entry(_db.Locations.Find(location.StoreNumber)).CurrentValues.SetValues(Mapper.Map(location));
         }
 
         public void Save()
