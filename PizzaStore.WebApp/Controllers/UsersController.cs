@@ -61,6 +61,10 @@ namespace PizzaStore.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (Repo.IsUserInDB(user.FirstName,user.LastName))
+                    {
+                        return View();
+                    }
                     Repo.AddUserToDB(new lib.User
                     {
                         First = user.FirstName,
@@ -77,14 +81,73 @@ namespace PizzaStore.WebApp.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Order(User user)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (Repo.IsUserInDB(user.FirstName, user.LastName))
+                    {
+                        return View();
+                    }
+                    Repo.AddUserToDB(new lib.User
+                    {
+                        First = user.FirstName,
+                        Last = user.LastName,
+                        PrefLocation = user.PrefLocation
+                    });
+                    Repo.Save();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult OrderHistory(int id)
+        {
+            var libOrder = Repo.SortOrderHistoryTimeOfOrderAscendingForUser(id);
+            var webOrder = libOrder.Select(x => new Order
+            {
+                OrderId = x.OrderID,
+                UserId = x.UserID,
+                StoreNumber = x.Location,
+                TotalPizzas = x.HowManyPizzas,
+                Price = x.Price,
+                TimeOfOrder = x.TimeOfOrder
+            });
+            return View(webOrder);
+        }
+
+        public ActionResult OrderDetails(int id)
+        {
+            var libPizza = Repo.GetOrderPizzaByOrderId(id);
+            var webPizza = new PizzaPie
+            {
+                OrderId = libPizza.OrderID,
+                Ham = libPizza.ToppingsDict["ham"],
+                Sausage = libPizza.ToppingsDict["sausage"],
+                Chicken = libPizza.ToppingsDict["chicken"],
+                Pepperoni = libPizza.ToppingsDict["pepperoni"],
+                Bbqchicken = libPizza.ToppingsDict["bbqchicken"],
+                Onion = libPizza.ToppingsDict["onion"],
+                Pepper = libPizza.ToppingsDict["pepper"],
+                Pineapple = libPizza.ToppingsDict["pineapple"]
+            };
+            return View(webPizza);
+        }
+
         // GET: PizzaPie/Edit/5
         public ActionResult Edit(int id)
         {
             var libUser = Repo.GetUserById(id);
             var webUser = new User
             {
-                FirstName = libUser.First,
-                LastName = libUser.Last,
                 PrefLocation = libUser.PrefLocation
             };
             return View(webUser);
@@ -101,11 +164,9 @@ namespace PizzaStore.WebApp.Controllers
                 {
                     var libUser = new lib.User
                     {
-                        ID = id,
-                        First = user.FirstName,
-                        Last = user.LastName
+                        PrefLocation = user.PrefLocation
                     };
-                   // Repo.UpdateRestaurant(libRest);
+                    //Repo.UpdateRestaurant(libRest);
                     //Repo.Save();
 
                     return RedirectToAction(nameof(Index));

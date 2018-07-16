@@ -1,0 +1,69 @@
+﻿@model IEnumerable<PizzaStore.WebApp.Models.Order>
+
+@{
+    ViewData["Title"] = "Order History";
+}
+
+<h2>Index</h2>
+
+
+<p>
+    <a asp-action="MostExpensive">Most Expensive</a>
+    <br />
+    <a asp-action="LeastExpensive">Least Expensive</a>
+    <br />
+    <a asp-action="MostRecent">Most recent</a>
+    <br />
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).OrderId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).StoreNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).TotalPizzas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).TimeOfOrder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoreNumber)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPizzas)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeOfOrder)
+
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.OrderId }) |
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

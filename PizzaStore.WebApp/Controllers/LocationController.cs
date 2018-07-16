@@ -4,90 +4,119 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PizzaStore.Library.PizzaStoreRepo;
+using PizzaStore.WebApp.Models;
+using lib = PizzaStore.Library;
 
 namespace PizzaStore.WebApp.Controllers
 {
     public class LocationController : Controller
     {
+        public PizzaStoreRepository Repo { get; }
+
+        public LocationController(PizzaStoreRepository repo)
+        {
+            Repo = repo;
+        }
+
         // GET: Location
         public ActionResult Index()
         {
-            return View();
-        }
-
-        // GET: Location/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Location/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Location/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            var libLocation = Repo.GetLocations();
+            var webOrder = libLocation.Select(x => new Location
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+                StoreNumber = x.StoreNumber,
+                Cheese = x.Cheese,
+                Dough = x.Dough,
+                Sauce = x.Sauce,
+                Pepperoni = x.Pepperoni,
+                Bbqchicken = x.BBQChicken,
+                Chicken = x.Chicken,
+                Ham = x.Ham,
+                Sausage = x.Sausage,
+                Onion = x.Onion,
+                Pepper = x.Pepper,
+                Pineapple = x.Pineapple
+            });
+            return View(webOrder);
         }
 
-        // GET: Location/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult OrderHistory(int id)
         {
-            return View();
+            var libOrder = Repo.SortOrderHistoryTimeOfOrderAscendingForLocation(id);
+            var webOrder = libOrder.Select(x => new Order
+            {
+                OrderId = x.OrderID,
+                UserId = x.UserID,
+                StoreNumber = x.Location,
+                TotalPizzas = x.HowManyPizzas,
+                Price = x.Price,
+                TimeOfOrder = x.TimeOfOrder
+            });
+            return View(webOrder);
         }
 
-        // POST: Location/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult MostExpensive(int id)
         {
-            try
+            var libOrder = Repo.SortOrderHistoryPriceOfOrderDescendingForLocation(id);
+            var webOrder = libOrder.Select(x => new Order
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+                OrderId = x.OrderID,
+                UserId = x.UserID,
+                StoreNumber = x.Location,
+                TotalPizzas = x.HowManyPizzas,
+                TimeOfOrder = x.TimeOfOrder,
+                Price = x.Price
+            });
+            return View(webOrder);
         }
 
-        // GET: Location/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult LeastExpensive(int id)
         {
-            return View();
+            var libOrder = Repo.SortOrderHistoryPriceOfOrderAscendingForLocation(id);
+            var webOrder = libOrder.Select(x => new Order
+            {
+                OrderId = x.OrderID,
+                UserId = x.UserID,
+                StoreNumber = x.Location,
+                TotalPizzas = x.HowManyPizzas,
+                TimeOfOrder = x.TimeOfOrder,
+                Price = x.Price
+            });
+            return View(webOrder);
         }
 
-        // POST: Location/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult MostRecent(int id)
         {
-            try
+            var libOrder = Repo.SortOrderHistoryTimeOfOrderDescendingForLocation(id);
+            var webOrder = libOrder.Select(x => new Order
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+                OrderId = x.OrderID,
+                UserId = x.UserID,
+                StoreNumber = x.Location,
+                TotalPizzas = x.HowManyPizzas,
+                TimeOfOrder = x.TimeOfOrder,
+                Price = x.Price
+            });
+            return View(webOrder);
+        }
+        // GET: Order/Details/5
+        public ActionResult OrderDetails(int id)
+        {
+            var libPizza = Repo.GetOrderPizzaByOrderId(id);
+            var webPizza = new PizzaPie
             {
-                return View();
-            }
+                OrderId = libPizza.OrderID,
+                Ham = libPizza.ToppingsDict["ham"],
+                Sausage = libPizza.ToppingsDict["sausage"],
+                Chicken = libPizza.ToppingsDict["chicken"],
+                Pepperoni = libPizza.ToppingsDict["pepperoni"],
+                Bbqchicken = libPizza.ToppingsDict["bbqchicken"],
+                Onion = libPizza.ToppingsDict["onion"],
+                Pepper = libPizza.ToppingsDict["pepper"],
+                Pineapple = libPizza.ToppingsDict["pineapple"]
+            };
+            return View(webPizza);
         }
     }
 }

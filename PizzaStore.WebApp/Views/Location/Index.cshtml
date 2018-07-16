@@ -1,0 +1,104 @@
+﻿@model IEnumerable<PizzaStore.WebApp.Models.Location>
+
+@{
+    ViewData["Title"] = "Locations";
+}
+
+<h2>Index</h2>
+
+<form asp-action="Index" method="get">
+    Search: <input type="search" name="search" />
+    <button type="submit">Submit</button>
+</form>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).StoreNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Cheese)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Dough)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Sauce)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Ham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Sausage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Chicken)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Bbqchicken)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Pepperoni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Onion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Pepper)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ElementAt(0).Pineapple)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoreNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cheese)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dough)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sauce)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ham)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sausage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chicken)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bbqchicken)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pepperoni)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Onion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pepper)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pineapple)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.StoreNumber }) |
+                @Html.ActionLink("Order History", "OrderHistory", new { id = item.StoreNumber })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

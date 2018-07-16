@@ -1,0 +1,39 @@
+﻿@model PizzaStore.WebApp.Models.OrderView
+
+@{
+    ViewData["Title"] = "Order";
+}
+
+<h2>Order</h2>
+
+@using (Html.BeginForm("PerformOrder", "Home", FormMethod.Post))
+{
+
+    @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.FirstName)
+    @Html.HiddenFor(model => model.LastName)
+    @Html.HiddenFor(model => model.PrefLocation)
+
+    <h3>Choose Size</h3>
+    <h5>Large:</h5> @Html.RadioButtonFor(m => m.Size, "Large")
+    <h5>Medium:</h5> @Html.RadioButtonFor(m => m.Size, "Medium")
+    <h5>Small:</h5> @Html.RadioButtonFor(m => m.Size, "Small")
+
+    <h3>Choose Sauce</h3>
+    <h5>Marinara:</h5> @Html.RadioButtonFor(m => m.Sauce, "Marinara")
+
+    <h5>Toppings</h5>
+    <h3>Sausage: </h3> @Html.CheckBoxFor(m => m.Sausage)
+    <h3>Pepperoni: </h3>@Html.CheckBoxFor(m => m.Pepperoni)
+    <h3>Chicken: </h3>@Html.CheckBoxFor(m => m.Chicken)
+    <h3>BBQChicken: </h3>@Html.CheckBoxFor(m => m.Bbqchicken)
+    <h3>Ham: </h3>@Html.CheckBoxFor(m => m.Ham)
+    <h3>Onion: </h3>@Html.CheckBoxFor(m => m.Onion)
+    <h3>Pepper: </h3>@Html.CheckBoxFor(m => m.Pepper)
+    <h3>Pineapple: </h3>@Html.CheckBoxFor(m => m.Pineapple)
+
+
+<h3>How many: </h3>@Html.TextBoxFor(m => m.TotalPizzas, new { type = "number", min = "1", max = "12" })
+<input type="submit" />
+
+}

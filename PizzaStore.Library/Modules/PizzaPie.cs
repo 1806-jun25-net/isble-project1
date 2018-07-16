@@ -14,6 +14,14 @@ namespace PizzaStore.Library
         public bool Sauce { get; set; }
         public HashSet<string> Toppings { get; set; }
         public decimal Price { get; set; }
+        public bool Onion { get; set; }
+        public bool Pepper { get; set; }
+        public bool Pineapple { get; set; }
+        public bool Ham { get; set; }
+        public bool Chicken { get; set; }
+        public bool Sausage { get; set; }
+        public bool Bbqchicken { get; set; }
+        public bool Pepperoni { get; set; }
         [XmlIgnore]
         public Dictionary<string, bool> ToppingsDict { get; set; } = new Dictionary<string, bool>()
         {

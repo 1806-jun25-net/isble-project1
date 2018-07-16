@@ -107,13 +107,13 @@ namespace PizzaStore.Library
             Pepperoni = pizza.ToppingsDict["pepperoni"]
         };
 
-        public static IEnumerable<User> Map(IEnumerable<Users> users) => users.Select(Map);
-        public static IEnumerable<Users> Map(IEnumerable<User> users) => users.Select(Map);
-        public static IEnumerable<Location> Map(IEnumerable<Locations> location) => location.Select(Map);
-        public static IEnumerable<Locations> Map(IEnumerable<Location> location) => location.Select(Map);
-        public static IEnumerable<Order> Map(IEnumerable<Orders> order) => order.Select(Map);
-        public static IEnumerable<Orders> Map(IEnumerable<Order> order) => order.Select(Map);
-        public static IEnumerable<PizzaPie> Map(IEnumerable<Data.PizzaPie> pizza) => pizza.Select(Map);
-        public static IEnumerable<Data.PizzaPie> Map(IEnumerable<PizzaPie> pizza) => pizza.Select(Map);
+        public static List<User> Map(IEnumerable<Users> users) => users.Select(Map).ToList();
+        public static List<Users> Map(IEnumerable<User> users) => users.Select(Map).ToList();
+        public static List<Location> Map(IEnumerable<Locations> location) => location.Select(Map).ToList();
+        public static List<Locations> Map(IEnumerable<Location> location) => location.Select(Map).ToList();
+        public static List<Order> Map(IEnumerable<Orders> order) => order.Select(Map).ToList();
+        public static List<Orders> Map(IEnumerable<Order> order) => order.Select(Map).ToList();
+        public static List<PizzaPie> Map(IEnumerable<Data.PizzaPie> pizza) => pizza.Select(Map).ToList();
+        public static List<Data.PizzaPie> Map(IEnumerable<PizzaPie> pizza) => pizza.Select(Map).ToList();
     }
 }

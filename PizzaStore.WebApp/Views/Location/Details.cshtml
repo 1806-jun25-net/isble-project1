@@ -1,0 +1,90 @@
+﻿@model PizzaStore.WebApp.Models.Location
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StoreNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StoreNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Dough)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Dough)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cheese)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cheese)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sauce)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sauce)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Onion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Onion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pepper)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pepper)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pineapple)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pineapple)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ham)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ham)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Chicken)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Chicken)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sausage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sausage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Bbqchicken)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bbqchicken)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pepperoni)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pepperoni)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

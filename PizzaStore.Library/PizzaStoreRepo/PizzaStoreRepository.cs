@@ -47,7 +47,7 @@ namespace PizzaStore.Library.PizzaStoreRepo
         public List<Order> SortOrderHistoryTimeOfOrderAscending()
         {
             var orders = _db.Orders;
-            return (List<Order>)Mapper.Map(orders.OrderBy(x => x.TimeOfOrder));
+            return Mapper.Map(orders.OrderBy(x => x.TimeOfOrder));
         }
         public List<Order> SortOrderHistoryPriceOfOrderDescending()
         {
@@ -60,6 +60,62 @@ namespace PizzaStore.Library.PizzaStoreRepo
             return (List<Order>)Mapper.Map(orders.OrderBy(x => x.Price));
         }
 
+        //Sort orders for users
+        public List<Order> SortOrderHistoryTimeOfOrderDescendingForUser(int id)
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderByDescending(x => x.TimeOfOrder).Where(x => x.UserId == id));
+        }
+        public List<Order> SortOrderHistoryTimeOfOrderAscendingForUser(int id)
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderBy(x => x.TimeOfOrder).Where(x => x.UserId == id));
+        }
+        public List<Order> SortOrderHistoryPriceOfOrderDescendingForUser(int id)
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderByDescending(x => x.Price).Where(x => x.UserId == id));
+        }
+        public List<Order> SortOrderHistoryPriceOfOrderAscendingForUser(int id)
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderBy(x => x.Price).Where(x => x.UserId == id));
+        }
+        
+        //Sort Order for locations
+        public List<Order> SortOrderHistoryTimeOfOrderDescendingForLocation(int id)
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderByDescending(x => x.TimeOfOrder).Where(x => x.StoreNumber == id));
+        }
+        public List<Order> SortOrderHistoryTimeOfOrderAscendingForLocation(int id)
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderBy(x => x.TimeOfOrder).Where(x => x.StoreNumber == id));
+        }
+        public List<Order> SortOrderHistoryPriceOfOrderDescendingForLocation(int id)
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderByDescending(x => x.Price).Where(x => x.StoreNumber == id));
+        }
+        public List<Order> SortOrderHistoryPriceOfOrderAscendingForLocation(int id)
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderBy(x => x.Price).Where(x => x.StoreNumber == id));
+        }
+
+        public PizzaPie GetOrderPizzaByOrderId(int id)
+        {
+            var pizza = _db.PizzaPie;
+            foreach (var item in pizza)
+            {
+                if (item.OrderId == id)
+                {
+                    return Mapper.Map(item);
+                }
+            }
+            return null;
+        }
 
         public bool IsLocationInDB(int loc)
         {
@@ -74,7 +130,7 @@ namespace PizzaStore.Library.PizzaStoreRepo
             return false;
         }
 
-        public int GetUserLocation (string first, string last)
+        public int GetUserLocation(string first, string last)
         {
             var users = _db.Users;
             foreach (var item in users)
@@ -86,6 +142,31 @@ namespace PizzaStore.Library.PizzaStoreRepo
             }
             return 0;
         }
+
+        public Location GetLocationById(int id)
+        {
+            var location = _db.Locations;
+            foreach (var item in location)
+            {
+                if (item.StoreNumber == id)
+                {
+                    return Mapper.Map(item);
+                }
+            }
+            return null;
+        }
+
+        public List<Location> GetLocations()
+        {
+            var location = _db.Locations;
+            List<Location> listLocations = new List<Location>();
+            foreach (var item in location)
+            {
+                listLocations.Add(Mapper.Map(item));
+            }
+            return listLocations;
+        }
+
         public bool IsUserInDB(string first, string last)
         {
             var users = _db.Users;
@@ -133,6 +214,30 @@ namespace PizzaStore.Library.PizzaStoreRepo
             return null;
         }
 
+        public int GetRecentOrderId()
+        {
+            var orders = _db.Orders;
+            int id = 0;
+            foreach (var item in orders)
+            {
+                id = item.OrderId;
+            }
+            return id;
+        }
+
+        public List<Order> GetOrderByUserId(int id)
+        {
+            var order = _db.Orders;
+            List<Order> listOfOrder = new List<Order>();
+            foreach (var item in order)
+            {
+                if (item.UserId == id)
+                {
+                    listOfOrder.Add(Mapper.Map(item));
+                }
+            }
+            return listOfOrder;
+        }
         public User GetUser(string first, string last)
         {
             var users = _db.Users;
@@ -200,6 +305,19 @@ namespace PizzaStore.Library.PizzaStoreRepo
             return ListOfOrders;
         }
 
+        public List<Order> GetLocationOrderHistoryById(int id)
+        {
+            var orders = _db.Orders;
+            List<Order> ListOfOrders = new List<Order>();
+            foreach (var item in orders)
+            {
+                if (item.StoreNumber == id)
+                {
+                    ListOfOrders.Add(Mapper.Map(item));
+                }
+            }
+            return ListOfOrders;
+        }
         public Order GetUserRecentOrder(User user)
         {
             var orders = _db.Orders;

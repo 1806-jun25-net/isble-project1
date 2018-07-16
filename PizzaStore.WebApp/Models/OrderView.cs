@@ -5,10 +5,22 @@ using System.Threading.Tasks;
 
 namespace PizzaStore.WebApp.Models
 {
-    public class PizzaPie
+    public class OrderView
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int PrefLocation { get; set; }
+
         public int OrderId { get; set; }
+        public int OrderUserId { get; set; }
+        public int StoreNumber { get; set; }
+        public int TotalPizzas { get; set; }
+        public decimal Price { get; set; }
+        public DateTime TimeOfOrder { get; set; }
+
+        public int PizzaId { get; set; }
+        public int PizzaOrderId { get; set; }
         public string Size { get; set; }
         public bool Sauce { get; set; }
         public bool Onion { get; set; }

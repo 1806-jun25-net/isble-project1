@@ -1,0 +1,72 @@
+﻿@model PizzaStore.WebApp.Models.PizzaPie
+
+@{
+    ViewData["Title"] = "User Order Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sausage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sausage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Bbqchicken)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bbqchicken)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Chicken)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Chicken)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pepperoni)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pepperoni)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ham)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ham)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Onion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Onion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pepper)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pepper)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pineapple)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pineapple)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
