@@ -75,34 +75,6 @@ namespace PizzaStoreTest
             Assert.True(actual);
         }
 
-        [Fact]
-        public void TestAddOrderToDB()
-        {
-            var configBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            var configuration = configBuilder.Build();
-            var optionsBuilder = new DbContextOptionsBuilder<PizzaStoreDbContext>();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("PizzastoreDB"));
-            var options = optionsBuilder.Options;
-
-            var dbContext = new PizzaStoreDbContext(options);
-            var PizzaStoreRepository = new PizzaStoreRepository(dbContext);
-
-            Order neworder = new Order()
-            {
-                HowManyPizzas = 4,
-                Location = 2,
-                UserID = 4,
-                TimeOfOrder = DateTime.Now,
-            };
-            PizzaStoreRepository.AddOrderToDB(neworder);
-            var actual = PizzaStoreRepository.GetRecentOrderId();
-
-
-            Assert.Equal(14,actual);
-        }
-
         //[Fact]
         //public void GetOrderHistoryFromDBTest()
         //{
