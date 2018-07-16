@@ -140,7 +140,7 @@ SELECT * FROM PizzaStore.Orders;
 SELECT * FROM PizzaStore.PizzaPie
 
 DELETE FROM PizzaStore.Users
-WHERE PizzaStore.Users.ID = 5
+WHERE PizzaStore.Users.ID = 10
 
 DELETE FROM PizzaStore.PizzaPie
-WHERE PizzaStore.PizzaPie.ID =5;
+WHERE PizzaStore.PizzaPie.ID =22;

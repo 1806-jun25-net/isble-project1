@@ -109,7 +109,7 @@ namespace PizzaStore.WebApp.Controllers
 
             Library.Order newOrder = new Library.Order()
             {
-                UserID = order.UserId,
+                UserID = Repo.GetUser(order.FirstName,order.LastName).ID,
                 Location = order.PrefLocation,
                 HowManyPizzas = order.TotalPizzas,
                 Price = newPizza.Price,

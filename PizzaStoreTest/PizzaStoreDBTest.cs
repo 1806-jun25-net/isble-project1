@@ -51,8 +51,8 @@ namespace PizzaStoreTest
 
             var actual = PizzaStoreRepository.GetLocationById(3);
 
-            
-            Assert.Equal(3 ,actual.StoreNumber);
+
+            Assert.Equal(3, actual.StoreNumber);
         }
 
         [Fact]
