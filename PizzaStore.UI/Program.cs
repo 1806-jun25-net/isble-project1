@@ -96,7 +96,6 @@ namespace PizzaStore.UI
                 FirstName = Console.ReadLine().ToLower().Replace(" ", string.Empty);
                 Console.WriteLine("Please enter your Last Name: ");
                 LastName = Console.ReadLine().ToLower().Replace(" ", string.Empty);
-                string FirstLast = FirstName + LastName;
                 int userstore;
 
                 while (!PizzaStoreRepository.IsUserInDB(FirstName, LastName))
@@ -528,24 +527,17 @@ namespace PizzaStore.UI
                             {
                                 userList.Add(item.Value);
                             }
-                            try
-                            {
-                                using (var stream = new FileStream("User_data.xml", FileMode.Create))
-                                {
-                                    userSerializer.Serialize(stream, userList);
-                                }
-                            }
-                            catch (IOException ex)
-                            {
-                                Console.WriteLine($"Error during save: {ex.Message}");
-                            }
-
                             foreach (KeyValuePair<int, Location> item in Location_Dict)
                             {
                                 locationList.Add(item.Value);
                             }
                             try
                             {
+                                using (var stream = new FileStream("User_data.xml", FileMode.Create))
+                                {
+                                    userSerializer.Serialize(stream, userList);
+                                }
+
                                 using (var stream = new FileStream("Location_data.xml", FileMode.Create))
                                 {
                                     locationSerializer.Serialize(stream, locationList);
