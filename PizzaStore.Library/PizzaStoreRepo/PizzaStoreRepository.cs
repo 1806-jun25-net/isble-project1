@@ -42,7 +42,7 @@ namespace PizzaStore.Library.PizzaStoreRepo
         public List<Order> SortOrderHistoryTimeOfOrderDescending()
         {
             var orders = _db.Orders;
-            return (List<Order>)Mapper.Map(orders.OrderByDescending(x => x.TimeOfOrder));
+            return Mapper.Map(orders.OrderByDescending(x => x.TimeOfOrder));
         }
         public List<Order> SortOrderHistoryTimeOfOrderAscending()
         {
@@ -52,12 +52,12 @@ namespace PizzaStore.Library.PizzaStoreRepo
         public List<Order> SortOrderHistoryPriceOfOrderDescending()
         {
             var orders = _db.Orders;
-            return (List<Order>)Mapper.Map(orders.OrderByDescending(x => x.Price));
+            return Mapper.Map(orders.OrderByDescending(x => x.Price));
         }
         public List<Order> SortOrderHistoryPriceOfOrderAscending()
         {
             var orders = _db.Orders;
-            return (List<Order>)Mapper.Map(orders.OrderBy(x => x.Price));
+            return Mapper.Map(orders.OrderBy(x => x.Price));
         }
 
         //Sort orders for users

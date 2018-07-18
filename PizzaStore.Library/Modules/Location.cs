@@ -64,7 +64,6 @@ namespace PizzaStore.Library
 
                 }
             } 
-            HashSet<string> tops = order.Toppings;
         }
 
         public Location()

@@ -12,7 +12,7 @@ using PizzaStore.Library.PizzaStoreRepo;
 
 namespace PizzaStore.UI
 {
-    class Program
+    public class Program
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -125,7 +125,7 @@ namespace PizzaStore.UI
 
                 Console.WriteLine($"Welcome {FirstName} {LastName}. Type a command for what you would like to do.");
 
-                while (running == true)
+                while (running)
                 {
                     User NewUser = PizzaStoreRepository.GetUser(FirstName,LastName);
 
@@ -316,14 +316,6 @@ namespace PizzaStore.UI
                                     Console.WriteLine($"Order:{item.OrderID} you ordered:{item.HowManyPizzas} From:{item.Location} At:{item.TimeOfOrder} and cost: ${item.Price}");
                                 }
                             }
-                            if (sort == "cheapest")
-                            {
-
-                            }
-                            if (sort == "most exspensive")
-                            {
-
-                            }
                             break;
 
                         case "quit":
@@ -338,7 +330,6 @@ namespace PizzaStore.UI
 
 
                 bool running = true;
-                //bool stillOrdering = true;
                 string FirstName = "";
                 string LastName = "";
 
@@ -373,7 +364,7 @@ namespace PizzaStore.UI
 
                 Console.WriteLine($"Welcome {FirstName} {LastName}. Type a command for what you would like to do.");
 
-                while (running == true)
+                while (running)
                 {
                     int location = Users_Dict[FirstLast].PrefLocation;
                     string Input = "";
