@@ -19,4 +19,8 @@
     <ProjectReference Include="..\PizzaStore.UI\PizzaStore.UI.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+
 </Project>
